@@ -1,0 +1,36 @@
+# Simulation build products
+build/
+*.vvp
+*.out
+*.o
+
+# Generated simulation output
+*.vcd
+*.fst
+*.lxt
+*.log
+
+# Permit deliberately selected final evidence when it uses these names/types.
+!results/logs/*_final.log
+!results/waveforms/*_final.vcd
+!results/waveforms/*.png
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Tool-specific working directories
+.cache/
+.pytest_cache/
+work/
+sim/
