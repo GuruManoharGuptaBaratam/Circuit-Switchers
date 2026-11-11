@@ -22,7 +22,7 @@ fi
 mkdir -p build results/logs results/waveforms
 
 COMPILE_LOG="results/logs/address_decoder_compile.log"
-TEST_LOG="results/logs/address_decoder_test.log"
+TEST_LOG="results/logs/address_decoder_final.log"
 SIM_BINARY="build/address_decoder_sim"
 
 echo "Compiling address decoder unit test..."

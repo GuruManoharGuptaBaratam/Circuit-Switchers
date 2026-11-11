@@ -36,11 +36,14 @@ flowchart LR
     TAG[Tag RAM<br/>64 x 22 bits]
     VALID[Valid-bit RAM<br/>64 x 1 bit]
     LOOKUP[Lookup logic<br/>valid and tag match]
-    SELECT[Byte selector<br/>offset selects 1 of 16 bytes]
+    CACHE_SELECT[Cached-block byte selector]
+    REFILL_SELECT[Refill-block byte selector]
     MEM[Main-memory model<br/>aligned 128-bit block read]
     R[Response<br/>byte + valid + hit flag]
 
-    P -->|req_valid, req_addr| D
+    P -->|req_addr| D
+    P -->|req_valid| C
+    C -->|req_ready| P
     D -->|decoded fields| C
     C -->|active index| DATA
     C -->|active index| TAG
@@ -48,17 +51,22 @@ flowchart LR
     TAG -->|stored tag| LOOKUP
     VALID -->|stored valid| LOOKUP
     C -->|active tag| LOOKUP
-    DATA -->|stored block| SELECT
-    C -->|active offset| SELECT
+    DATA -->|stored block| CACHE_SELECT
+    C -->|active offset| CACHE_SELECT
     LOOKUP -->|hit / miss| C
-    SELECT -->|cached byte| C
-    C -->|miss: mem_req + aligned address| MEM
-    MEM -->|mem_ready + 128-bit block| SELECT
+    CACHE_SELECT -->|cached byte| C
+    C -->|mem_req| MEM
+    C -->|active tag and index| A[Top-level block alignment]
+    A -->|aligned mem_addr| MEM
+    MEM -->|mem_ready| C
+    MEM -->|128-bit block| REFILL_SELECT
+    C -->|active offset| REFILL_SELECT
+    REFILL_SELECT -->|refill byte| C
     MEM -->|refill block| DATA
-    C -->|refill enable + active tag/index| DATA
+    C -->|refill enable + active index| DATA
     C -->|refill enable + active tag/index| TAG
-    C -->|refill enable + valid=1| VALID
-    C -->|completion| R
+    C -->|refill enable + active index + valid=1| VALID
+    C -->|resp_data, resp_valid, resp_hit| R
     R --> P
 ```
 
@@ -90,7 +98,7 @@ The byte selector uses the 4-bit offset to choose one byte from the cached 128-b
 
 ### 4B. Miss and refill path
 
-The controller forms an aligned block address by clearing bits `[3:0]`, asserts `mem_req`, and waits for `mem_ready`. When the 128-bit block arrives, the selected cache line is updated:
+The controller supplies the stable active tag and index; `cache_top` forms the aligned block address by appending four zero bits. The controller asserts `mem_req` and waits for `mem_ready`. When the 128-bit block arrives, the selected cache line is updated:
 
 - data RAM receives the returned block;
 - tag RAM receives the active tag;

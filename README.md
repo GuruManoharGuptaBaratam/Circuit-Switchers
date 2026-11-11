@@ -41,9 +41,10 @@ Circuit-Switchers/
 |   |-- architecture.md
 |   |-- address_breakdown.md
 |   |-- interface_contract.md
-|   |-- fsm_design.md
-|   |-- test_plan.md
 |   |-- cache_storage.md
+|   |-- address_decoder_test_plan.md
+|   |-- controller_requirements.md
+|   |-- system_test_requirements.md
 |   `-- report/
 |-- rtl/
 |   |-- address_decoder.v
@@ -53,9 +54,12 @@ Circuit-Switchers/
 |   `-- valid_bit_ram.v
 |-- tb/
 |   |-- tb_address_decoder.v
-|   `-- tb_cache_storage.v
+|   |-- tb_cache_storage.v
+|   `-- stubs/
+|       `-- cache_top_dependency_stubs.v
 |-- scripts/
-|   `-- run_sim.sh
+|   |-- run_address_decoder_test.sh
+|   `-- check_cache_top.sh
 |-- results/
 |   |-- logs/
 |   |-- waveforms/
@@ -65,7 +69,7 @@ Circuit-Switchers/
     `-- README_Submission.txt
 ```
 
-No placeholder RTL has been created for Members 03 and 04.
+No placeholder implementation has been added under `rtl/` for Members 03 and 04. Compile-only stubs live under `tb/stubs/` so the top-level connections can be elaborated without occupying the owning members' RTL filenames.
 
 ## Member 01 implementation
 
@@ -132,7 +136,7 @@ gtkwave --version
 From the repository root:
 
 ```bash
-./scripts/run_sim.sh
+./scripts/run_address_decoder_test.sh
 ```
 
 The script checks prerequisites, creates output directories, compiles the decoder and testbench, runs the simulation, and fails with nonzero status if compilation, simulation, or waveform generation fails.
@@ -157,7 +161,7 @@ ALL ADDRESS DECODER TESTS PASSED
 Generated files:
 
 - `results/logs/address_decoder_compile.log`
-- `results/logs/address_decoder_test.log`
+- `results/logs/address_decoder_final.log`
 - `results/waveforms/address_decoder.vcd`
 
 To inspect the waveform after a successful simulation:
@@ -203,9 +207,19 @@ Generated files:
 
 - `results/waveforms/cache_storage.vcd`
 
+The committed passing output is `results/logs/cache_storage_final.log`.
+
 ## Full-cache integration status
 
-`rtl/cache_top.v` is an integration skeleton. Member 02's storage modules match its storage ports. Lookup, controller, and main-memory modules are still required before the top level can compile as a complete cache. A full-cache simulation command will be added by Member 05 only after those dependencies exist.
+`rtl/cache_top.v` is an integration skeleton. Member 02's storage modules match its storage ports. Lookup, controller, and main-memory modules are still required before it can operate as a complete cache.
+
+The current skeleton can be compiled and its module ports elaborated with build-only stubs:
+
+```bash
+./scripts/check_cache_top.sh
+```
+
+The stubs intentionally provide no cache behavior and must not be included in functional simulation after the real modules arrive. A full-cache simulation command will be added by Member 05 after those dependencies exist.
 
 Pending RTL:
 
@@ -232,6 +246,7 @@ Never force-push shared branches, commit generated simulation binaries, or silen
 - `docs/address_breakdown.md` explains tag, index, and offset with six worked examples.
 - `docs/interface_contract.md` defines exact ports and handshake behavior.
 - `docs/architecture.md` explains the system flow and includes a Mermaid diagram.
-- `docs/fsm_design.md` is a clearly marked hand-off for Member 04.
 - `docs/cache_storage.md` explains the storage dimensions, reset behavior, and controls.
-- `docs/test_plan.md` records Member 01's unit test and Member 05's pending system scope.
+- `docs/address_decoder_test_plan.md` records Member 01's unit test.
+- `docs/controller_requirements.md` hands the frozen controller requirements to Member 04 without occupying Member 04's final `docs/fsm_design.md`.
+- `docs/system_test_requirements.md` hands verification requirements to Member 05 without occupying Member 05's final `docs/test_plan.md`.
