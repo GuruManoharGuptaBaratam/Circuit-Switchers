@@ -1,0 +1,48 @@
+VCD info: dumpfile results/waveforms/cache_storage.vcd opened for output.
+Cache storage unit test
+-----------------------
+PASS: reset clears all valid bits
+PASS: reset overrides valid write
+      line 3 valid=0
+PASS: line 3 data reads back
+      line 3 data=0x00112233445566778899aabbccddeeff
+PASS: line 3 data is replaced
+      line 3 data=0xffeeddccbbaa99887766554433221100
+PASS: line 4 data keeps line 3
+      line 3 data=0xffeeddccbbaa99887766554433221100
+PASS: line 4 data reads back
+      line 4 data=0x0123456789abcdef0123456789abcdef
+PASS: line 0 data reads back
+      line 0 data=0xa5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5
+PASS: line 63 data reads back
+      line 63 data=0x5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a
+PASS: edge lines keep line 3 data
+      line 3 data=0xffeeddccbbaa99887766554433221100
+PASS: disabled data write keeps line
+      line 3 data=0xffeeddccbbaa99887766554433221100
+PASS: line 3 tag reads back
+      line 3 tag=0x155555
+PASS: line 3 tag is replaced
+      line 3 tag=0x2aaaaa
+PASS: line 4 tag keeps line 3
+      line 3 tag=0x2aaaaa
+PASS: line 4 tag reads back
+      line 4 tag=0x3fffff
+PASS: disabled tag write keeps line
+      line 3 tag=0x2aaaaa
+PASS: line 3 valid bit sets
+      line 3 valid=1
+PASS: line 4 valid bit stays clear
+      line 4 valid=0
+PASS: other valid bits stay clear
+PASS: disabled valid write keeps line
+      line 3 valid=1
+PASS: valid bit can be cleared
+      line 3 valid=0
+PASS: clear keeps line 4 invalid
+      line 4 valid=0
+PASS: reset clears valid bits again
+-----------------------
+SUMMARY: 22 run, 22 passed, 0 failed
+ALL CACHE STORAGE TESTS PASSED
+tb/tb_cache_storage.v:332: $finish called at 360000 (1ps)
