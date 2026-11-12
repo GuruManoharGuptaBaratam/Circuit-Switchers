@@ -1,0 +1,39 @@
+{
+  "captured_at": "2026-11-12T11:46:37.821309+05:30",
+  "source_commit": "370a8f7f63f29c2639632e28bd556d47d5c0033e",
+  "iverilog": "Icarus Verilog version 13.0 (stable) (v13_0)",
+  "vvp": "Icarus Verilog runtime version 13.0 (stable) (v13_0)",
+  "component_runs": [
+    {
+      "command": "bash scripts/run_address_decoder_test.sh",
+      "exit_status": 0,
+      "log": "results/logs/address_decoder_audit_final.log"
+    },
+    {
+      "command": "bash scripts/run_cache_storage_test.sh",
+      "exit_status": 0,
+      "log": "results/logs/cache_storage_audit_final.log"
+    },
+    {
+      "command": "bash scripts/check_cache_top.sh",
+      "exit_status": 0,
+      "log": "results/logs/cache_top_audit_final.log"
+    }
+  ],
+  "without_stubs_exit_status": 6,
+  "without_stubs_log": "results/logs/cache_top_without_stubs_final.log",
+  "integrated_functional_tests": "NOT RUN: no system testbench or complete cache RTL",
+  "scope": "Unit tests and stub-assisted port elaboration only. No measured hit rate, AMAT, synthesis area or Fmax.",
+  "sha256": {
+    "rtl/address_decoder.v": "523786c7a86705f06ada779d5de72fb9423ea45f934a5b759ee77c3e38aa1830",
+    "rtl/cache_data_ram.v": "86fa5575f76b920ceb973ff2b12fce0e0c34560ce37bb4beaf689cd9cce9b930",
+    "rtl/cache_top.v": "cb3ce08aa442396d323a8e325fd678b1c0272397162ffff8b3e1f3f93e6c7b72",
+    "rtl/tag_ram.v": "fa4daa801953e5f4316d1d75cce8eea4aa2c95430ea4ee7886ad64575be693dd",
+    "rtl/valid_bit_ram.v": "926821033ceaee3a04dcc6b80335c758feb8fae79838c9c7fba644eba75239a6",
+    "tb/stubs/cache_top_dependency_stubs.v": "fcfb295953bf9b75edbedee0c53a8d07e14b443ebbb8a45bbcdb7e0887dd6218",
+    "tb/tb_address_decoder.v": "32183809be20e14d747b9f0d522f2451eed9f3dde70ade7cce5d90f539aca881",
+    "tb/tb_cache_storage.v": "4e75b31b921ec1c6bea29a8bdf221713498ffe8417f22d856ca7c4b4cbd417dc",
+    "results/waveforms/address_decoder_final.vcd": "f893c9b5755bd6cce8bb3bcf1dfe0905227cc8a81e6b82b897834120e2bf34bc",
+    "results/waveforms/cache_storage_final.vcd": "90b07cf045416454b7dd7bb4582e7a15bf61f987e9d2fab45dc467617bf1c329"
+  }
+}

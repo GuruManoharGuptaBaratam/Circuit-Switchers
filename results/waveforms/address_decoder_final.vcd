@@ -1,0 +1,89 @@
+$date
+	Thu Nov 12 11:46:37 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_address_decoder $end
+$var wire 22 ! tag [21:0] $end
+$var wire 4 " offset [3:0] $end
+$var wire 6 # index [5:0] $end
+$var reg 32 $ address [31:0] $end
+$var integer 32 % tests_failed [31:0] $end
+$var integer 32 & tests_passed [31:0] $end
+$var integer 32 ' tests_run [31:0] $end
+$scope module dut $end
+$var wire 32 ( address [31:0] $end
+$var wire 22 ) tag [21:0] $end
+$var wire 4 * offset [3:0] $end
+$var wire 6 + index [5:0] $end
+$upscope $end
+$scope task run_test $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 +
+b0 *
+b0 )
+b0 (
+b1 '
+b0 &
+b0 %
+b0 $
+b0 #
+b0 "
+b0 !
+$end
+#1000
+b100 "
+b100 *
+b100 $
+b100 (
+b10 '
+b1 &
+#2000
+b1111 "
+b1111 *
+b1111 $
+b1111 (
+b11 '
+b10 &
+#3000
+b1 #
+b1 +
+b0 "
+b0 *
+b10000 $
+b10000 (
+b100 '
+b11 &
+#4000
+b1 !
+b1 )
+b0 #
+b0 +
+b10000000000 $
+b10000000000 (
+b101 '
+b100 &
+#5000
+b1111111111111111111111 !
+b1111111111111111111111 )
+b111111 #
+b111111 +
+b1111 "
+b1111 *
+b11111111111111111111111111111111 $
+b11111111111111111111111111111111 (
+b110 '
+b101 &
+#6000
+b110 &

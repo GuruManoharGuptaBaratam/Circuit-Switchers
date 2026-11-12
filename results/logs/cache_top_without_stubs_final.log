@@ -1,0 +1,17 @@
+$ iverilog -g2012 -Wall -s cache_top -o build/cache_top_without_stubs rtl/address_decoder.v rtl/cache_data_ram.v rtl/cache_top.v rtl/tag_ram.v rtl/valid_bit_ram.v
+rtl/cache_top.v:9: warning: timescale for cache_top inherited from another file.
+rtl/cache_data_ram.v:1: ...: The inherited timescale is here.
+rtl/cache_top.v:92: error: Unknown module type: cache_lookup
+rtl/cache_top.v:101: error: Unknown module type: data_selector
+rtl/cache_top.v:107: error: Unknown module type: data_selector
+rtl/cache_top.v:113: error: Unknown module type: cache_controller
+rtl/cache_top.v:140: error: Unknown module type: main_memory_model
+6 error(s) during elaboration.
+*** These modules were missing:
+        cache_controller referenced 1 times.
+        cache_lookup referenced 1 times.
+        data_selector referenced 2 times.
+        main_memory_model referenced 1 times.
+***
+
+EXIT STATUS: 6

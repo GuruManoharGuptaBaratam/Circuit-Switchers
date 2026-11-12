@@ -1,0 +1,67 @@
+{
+  "renderer": "Existing Obsidian installation: lib/mermaid.min.js",
+  "runtime_sha256": "662f8b68d21daac0e9bc0d0b7adc78e2c556e69e70881edccb81a5cf384eee64",
+  "browser": "157.0.8103.51",
+  "diagrams": [
+    {
+      "diagram": "system_architecture",
+      "source_sha256": "553e8eed978a27e7f2154a72f62c08ae66644e54040615f7f8e11cb7c8b80ccb",
+      "width": 1148,
+      "height": 949,
+      "syntax": "Mermaid parse and render succeeded",
+      "outputs": [
+        "svg",
+        "png",
+        "pdf"
+      ]
+    },
+    {
+      "diagram": "address_breakdown",
+      "source_sha256": "1a49126a23c312406e976169b940f29afe6eff050f4eb9b2167a0f4d23ba1017",
+      "width": 805,
+      "height": 376,
+      "syntax": "Mermaid parse and render succeeded",
+      "outputs": [
+        "svg",
+        "png",
+        "pdf"
+      ]
+    },
+    {
+      "diagram": "cache_hit_miss_flow",
+      "source_sha256": "d33a61f7e30fcd044ad4d9ab66b77a012159e2541c6833de6bf0f9cffe818390",
+      "width": 744,
+      "height": 1337,
+      "syntax": "Mermaid parse and render succeeded",
+      "outputs": [
+        "svg",
+        "png",
+        "pdf"
+      ]
+    },
+    {
+      "diagram": "controller_fsm",
+      "source_sha256": "19ec4d481fcef06591a24246202a7fcd4a2886ab1ce38007e8779e5f1a76d94a",
+      "width": 1122,
+      "height": 600,
+      "syntax": "Mermaid parse and render succeeded",
+      "outputs": [
+        "svg",
+        "png",
+        "pdf"
+      ]
+    },
+    {
+      "diagram": "module_connections",
+      "source_sha256": "9e6fad426caaae3c21bb2dae1f3092ff5869a49e7d4242df19ce3728580caadf",
+      "width": 1267,
+      "height": 1387,
+      "syntax": "Mermaid parse and render succeeded",
+      "outputs": [
+        "svg",
+        "png",
+        "pdf"
+      ]
+    }
+  ]
+}

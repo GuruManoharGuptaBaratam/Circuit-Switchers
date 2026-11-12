@@ -1,0 +1,25 @@
+$ bash scripts/run_address_decoder_test.sh
+Compiling address decoder unit test...
+warning: Some design elements have no explicit time unit and/or
+       : time precision. This may cause confusing timing results.
+       : Affected design elements are:
+       :   -- module address_decoder declared here: rtl/address_decoder.v:7
+Running address decoder unit test...
+VCD info: dumpfile results/waveforms/address_decoder.vcd opened for output.
+Address decoder unit test
+-------------------------
+PASS: zero address | address=0x00000000 tag=0x000000 index=0 offset=0
+PASS: byte offset 4 | address=0x00000004 tag=0x000000 index=0 offset=4
+PASS: last byte of first block | address=0x0000000f tag=0x000000 index=0 offset=15
+PASS: next memory block | address=0x00000010 tag=0x000000 index=1 offset=0
+PASS: same index, different tag | address=0x00000400 tag=0x000001 index=0 offset=0
+PASS: maximum address | address=0xffffffff tag=0x3fffff index=63 offset=15
+-------------------------
+SUMMARY: 6 run, 6 passed, 0 failed
+ALL ADDRESS DECODER TESTS PASSED
+tb/tb_address_decoder.v:80: $finish called at 6000 (1ps)
+SUCCESS: address decoder tests completed.
+Test log: /Users/baratamgurumanohargupta/Desktop/My Projects/Circuit Switchers/Circuit-Switchers/results/logs/address_decoder_final.log
+Waveform: /Users/baratamgurumanohargupta/Desktop/My Projects/Circuit Switchers/Circuit-Switchers/results/waveforms/address_decoder.vcd
+
+EXIT STATUS: 0

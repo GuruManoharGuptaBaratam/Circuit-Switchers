@@ -1,0 +1,12 @@
+$ bash scripts/check_cache_top.sh
+Checking cache_top ports and elaboration with build-only stubs...
+rtl/cache_top.v:9: warning: timescale for cache_top inherited from another file.
+rtl/valid_bit_ram.v:1: ...: The inherited timescale is here.
+warning: Some design elements have no explicit time unit and/or
+       : time precision. This may cause confusing timing results.
+       : Affected design elements are:
+       :   -- module address_decoder declared here: rtl/address_decoder.v:7
+SUCCESS: cache_top compiled with the delivered RTL and build-only stubs.
+Compile log: /Users/baratamgurumanohargupta/Desktop/My Projects/Circuit Switchers/Circuit-Switchers/results/logs/cache_top_compile_check.log
+
+EXIT STATUS: 0
