@@ -24,6 +24,21 @@ Integrated and verified by Member 02:
 - docs/cache_storage.md
 - results/logs/cache_storage_final.log
 
+Integrated and verified by Member 04:
+- rtl/cache_controller.v
+- rtl/main_memory_model.v
+- tb/tb_cache_controller.v
+- docs/fsm_design.md
+- docs/memory_model.md
+- scripts/run_cache_controller_test.sh
+- results/logs/cache_controller_final.log
+- results/waveforms/cache_controller_final.vcd
+- results/waveforms/cache_controller_miss_hit.png
+- scripts/plot_controller_figures.py
+- submission/report/figures/controller_fsm.{pdf,png} (now the implemented FSM)
+- submission/report/figures/controller_waveform.{pdf,png}
+- submission/presentation/member04_slides.md
+
 Current scope:
 - 32-bit address split into 22-bit tag, 6-bit index, and 4-bit offset
 - Read-only, byte-wide first integration milestone
@@ -31,7 +46,6 @@ Current scope:
 
 Pending team integration:
 - Member 03 lookup, comparator, and data-selector RTL
-- Member 04 controller FSM and main-memory model RTL
 - Member 05 full-system tests, metrics, waveform evidence, and synthesis results
 
 Do not submit this placeholder as the final team report. Before final submission,

@@ -25,7 +25,7 @@ mkdir -p build results/logs
 COMPILE_LOG="results/logs/cache_top_compile_check.log"
 COMPILE_OUTPUT="build/cache_top_compile_check"
 
-echo "Checking cache_top ports and elaboration with delivered RTL and remaining stubs..."
+echo "Checking cache_top ports and elaboration with all delivered RTL (no stubs)..."
 iverilog -g2012 -Wall \
     -s cache_top \
     -o "${COMPILE_OUTPUT}" \
@@ -36,9 +36,10 @@ iverilog -g2012 -Wall \
     rtl/tag_comparator.v \
     rtl/cache_lookup.v \
     rtl/data_selector.v \
+    rtl/cache_controller.v \
+    rtl/main_memory_model.v \
     rtl/cache_top.v \
-    tb/stubs/cache_top_dependency_stubs.v \
     2>&1 | tee "${COMPILE_LOG}"
 
-echo "SUCCESS: cache_top compiled with the delivered RTL and build-only stubs."
+echo "SUCCESS: cache_top compiled with the complete delivered RTL."
 echo "Compile log: ${REPO_ROOT}/${COMPILE_LOG}"
