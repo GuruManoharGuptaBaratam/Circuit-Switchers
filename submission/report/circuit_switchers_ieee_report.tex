@@ -15,7 +15,7 @@
 \IEEEauthorblockA{Department of CS and AI\\Newton School of Technology\\Phase I -- 12 November 2026}}
 \maketitle
 \begin{abstract}
-Processor performance can be limited by the time required to access main memory. A cache retains recently used blocks near the processor and can exploit temporal and spatial locality. Circuit Switchers proposes a direct-mapped, read-only cache controller in Verilog with 32-bit byte addresses, 1024 bytes of data capacity, 64 lines and 16-byte blocks. Direct mapping provides a simple indexed lookup and a deterministic replacement location. The Phase-I prototype implements the address decoder and the data, tag and valid-bit storage; a top-level skeleton establishes the remaining interfaces. Re-executed Icarus Verilog simulations passed six directed decoder cases and 22 storage checks. Stub-assisted elaboration verifies module-port compatibility only. Functional lookup, byte selection, controller sequencing, main-memory service and integrated-system verification remain pending. This report presents the implemented architecture, the proposed transaction flow, verified component evidence and the five-member work allocation without claiming completed cache operation or measured performance gains.
+Processor performance can be limited by the time required to access main memory. A cache retains recently used blocks near the processor and can exploit temporal and spatial locality. Circuit Switchers proposes a direct-mapped, read-only cache controller in Verilog with 32-bit byte addresses, 1024 bytes of data capacity, 64 lines and 16-byte blocks. Direct mapping provides a simple indexed lookup and a deterministic replacement location. The Phase-I prototype implements the address decoder and the data, tag and valid-bit storage; a top-level skeleton establishes the remaining interfaces. Re-executed Icarus Verilog simulations passed six directed decoder cases and 22 storage checks. Stub-assisted elaboration verifies module-port compatibility only. The controller FSM and a deterministic main-memory model now complete the read path; an integrated controller test passes 40 of 40 checks, with a 2-cycle hit and an 8-cycle miss. Workload-level system verification, hit-rate/AMAT measurement and synthesis remain pending. This report presents the implemented architecture, the proposed transaction flow, verified component evidence and the five-member work allocation without claiming completed cache operation or measured performance gains.
 \end{abstract}
 \begin{IEEEkeywords}direct-mapped cache, Verilog, memory hierarchy, RTL verification, Phase-I prototype\end{IEEEkeywords}
 \section{Introduction}
@@ -69,14 +69,14 @@ Intended processor response & 8-bit read; interface only\\
 
 Two \path{data_selector} instances are wired: one selects from \path{stored_block}, and the other from \path{mem_block}. Each is intended to select byte lane n as block\_data[(8*n) +: 8], so offset zero selects bits [7:0]. Neither selector has functional RTL. The assignment mem\_addr = \{active\_tag, active\_index, 4'b0000\} exists and aligns a future memory request to 16 bytes.
 
-Missing top-level module types are \path{cache_lookup}, \path{data_selector}, \path{cache_controller} and \path{main_memory_model}. The contract additionally assigns a \path{tag_comparator} inside the future lookup implementation; it is not an existing top-level instance. Files in \path{tb/stubs/} provide constant outputs only and are excluded from claims of cache functionality.
+The controller and main-memory model (\path{cache_controller}, \path{main_memory_model}) are now delivered by Member 04, and \path{cache_top} elaborates with real RTL for every instance. The contract additionally assigns a \path{tag_comparator} inside the future lookup implementation; it is not an existing top-level instance. Files in \path{tb/stubs/} provide constant outputs only and are excluded from claims of cache functionality.
 
 \subsection{Intended hit, miss and refill operation}
 Fig.~\ref{fig:cache_hit_miss_flow} is the proposed transaction flow. When \path{req_valid} and \path{req_ready} are high at a rising edge, the controller must capture tag, index and offset and hold them until completion. The selected storage line can then be checked. The intended hit equation is stored\_valid AND (active\_tag = stored\_tag). A hit should return the selected cached byte with \path{resp_hit} high and without a memory request.
 
-A miss should assert \path{mem_req} and hold the aligned address until \path{mem_ready}. While the returned block is valid, one refill edge must update data, tag and valid storage at \path{active_index}. The response byte should be selected directly from \path{mem_block}, with \path{resp_hit} low. \path{resp_valid} must pulse exactly once for each accepted request. All of this sequencing remains planned; unit-tested storage writes are not evidence of completed refills.
+A miss should assert \path{mem_req} and hold the aligned address until \path{mem_ready}. While the returned block is valid, one refill edge must update data, tag and valid storage at \path{active_index}. The response byte should be selected directly from \path{mem_block}, with \path{resp_hit} low. \path{resp_valid} must pulse exactly once for each accepted request. Member 04's \path{cache_controller} implements this sequencing, and the integrated test in Section~\ref{sec:m4} verifies it, including the refill writes into storage.
 
-Fig.~\ref{fig:controller_fsm} is explicitly a proposed state model. It uses the illustrative names IDLE, LOOKUP and MEM\_WAIT already mentioned in the controller requirements. The transitions express required phases, not extracted state encodings or measured cycle counts. In particular, adding separate REFILL or RESPOND cycles requires retaining the returned block or revising the timing contract; the current memory interface promises valid data only with its ready pulse.
+Fig.~\ref{fig:controller_fsm} is the implemented state machine of \path{rtl/cache_controller.v}. It has four states: IDLE, LOOKUP, MEM\_WAIT and RESPOND. The memory interface promises valid data only during the \path{mem_ready} pulse, so the refill is performed on the MEM\_WAIT$\rightarrow$RESPOND edge. \path{refill_write_en} is the single Mealy output, (state = MEM\_WAIT) AND \path{mem_ready}, and the requested byte is latched from \path{mem_block} on that same edge. RESPOND then only drives the one-cycle \path{resp_valid} pulse.
 
 \section{Verification and Preliminary Results}
 \subsection{Executed component checks}
@@ -94,8 +94,9 @@ Decoder unit simulation & 6 run; 6 passed; 0 failed\\
 Storage unit simulation & 22 run; 22 passed; 0 failed\\
 Lookup unit simulation & 41 run; 41 passed; 0 failed\\
 Top level with stubs & Elaboration succeeded\\
-Top level without stubs & Exit 3; two module types absent\\
-Full-cache transactions & Not run; dependencies absent\\
+Top level without stubs & Elaboration succeeded\\
+Controller integrated simulation & 40 run; 40 passed; 0 failed\\
+Workload traces / AMAT & Not run; Member 05 pending\\
 \bottomrule\end{tabular}
 \end{table}
 \subsection{Reproducibility and limits}
@@ -106,7 +107,7 @@ Icarus reports timescale warnings for the decoder and top-level skeleton. These 
 No integrated hit count, miss count, random workload, AMAT, synthesis utilization or maximum clock frequency has been measured. For future reporting, define miss rate as misses/accepted requests and use AMAT = hit time + miss rate x additional miss penalty \cite{hennessy2017}, with consistent units and a stated sampling method. The additional penalty must exclude the hit-time term to avoid counting it twice.
 
 \section{Individual Contributions}
-The team supplied the names and institution. Assigned responsibility is distinguished from delivered work. Git history supports file changes by Members 01 and 02; no implementation or system-test delivery was found for Members 03-05. Audit documentation and evidence capture are not retroactively credited as their implementation work.
+The team supplied the names and institution. Assigned responsibility is distinguished from delivered work. Git history and the working tree support implementation deliveries by Members 01-04; no system-test delivery was found for Member 05. Audit documentation and evidence capture are not retroactively credited as their implementation work.
 
 \subsection{Member 01 - Guru Manohar Gupta}
 Assigned: address decoder, top-level integration, interface contract and architecture documentation. Delivered: \path{rtl/address_decoder.v}, \path{rtl/cache_top.v}, the decoder testbench, interface/architecture documents and compile scripts. Commits \path{9aa6577}, \path{d930302}, \path{1217060} and \path{370a8f7} appear under Git author GuruManoharGuptaBaratam. Six decoder checks pass; the skeleton elaborates with stubs. The contribution establishes address interpretation and module boundaries. Full integration remains incomplete.
@@ -117,8 +118,16 @@ Assigned: Cache Data RAM, Tag RAM and Valid-Bit RAM. Delivered: \path{rtl/cache_
 \subsection{Member 03 - Pranavi Mathur}
 Assigned: Tag Comparator, Cache Lookup and Data Selector. Delivered: \path{rtl/tag_comparator.v}, \path{rtl/cache_lookup.v}, \path{rtl/data_selector.v}, \path{tb/tb_cache_lookup.v}, \path{docs/cache_lookup.md}, and automated test script \path{scripts/run_cache_lookup_test.sh}. All 41 directed test cases pass (recorded in \path{results/logs/cache_lookup_final.log} and \path{results/waveforms/cache_lookup_final.vcd}). This contribution implements 22-bit tag equality comparison, hit generation gated strictly with the line's valid bit (preventing false hits on uninitialized lines), and Little-Endian 16-to-1 byte multiplexing across all 16 offsets. Direct-mapped conflict addresses (0x00000000 and 0x00000400) were verified in coordination with Member 05. Elaboration in \path{cache_top.v} successfully verifies compatibility with Members 01 and 02.
 
-\subsection{Member 04 - Yatin Singh}
-Assigned: Cache Controller FSM, Main-Memory Model, memory request and refill sequencing. Planned files \path{rtl/cache_controller.v} and \path{rtl/main_memory_model.v} are absent. Requirements exist in \path{docs/controller_requirements.md} and the shared contract, but they are not delivered controller RTL. No state-transition, memory-response or refill test has run. This work must implement request capture, stable handshakes, refill timing and exactly-once completion.
+\subsection{Member 04 - Yatin Singh}\label{sec:m4}
+Assigned: Cache Controller FSM, Main-Memory Model, memory request and refill sequencing. Delivered: \path{rtl/cache_controller.v}, \path{rtl/main_memory_model.v}, \path{tb/tb_cache_controller.v}, \path{docs/fsm_design.md}, \path{docs/memory_model.md}, \path{scripts/run_cache_controller_test.sh} and the figure script \path{scripts/plot_controller_figures.py}.
+
+\textbf{Controller.} A four-state FSM (Fig.~\ref{fig:controller_fsm}). IDLE asserts \path{req_ready} and captures tag, index and offset on acceptance. These \path{active_*} fields stay constant until completion, which keeps \path{mem_addr} aligned and stable. LOOKUP samples the combinational \path{lookup_hit}. A hit latches the cached byte and goes directly to RESPOND, so \path{mem_req} is never raised. A miss enters MEM\_WAIT, which holds \path{mem_req} until \path{mem_ready}. In that cycle, \path{refill_write_en} writes the data, tag and valid bit at \path{active_index}, and the requested byte is taken from \path{mem_block}. RESPOND pulses \path{resp_valid} once. Synchronous reset returns to IDLE from any state.
+
+\textbf{Main memory.} The model is a simulation-only 64~KB byte array initialised to mem[a] = a[7:0] XOR a[15:8] XOR 0xA5. All bytes in a block therefore differ, and blocks sharing an index (0x000, 0x400) return different data. It accepts a request on the first edge on which \path{mem_req} is high and returns the 16-byte block with a one-cycle \path{mem_ready} pulse after a fixed \path{LATENCY} (default 4 cycles). Byte lane $n$ holds address mem\_addr + $n$, and reset cancels a request in flight.
+
+\textbf{Timing.} Measured from the acceptance edge, a hit responds in 2 cycles and a miss in LATENCY + 4 = 8 cycles. The miss penalty is therefore LATENCY + 2 = 6 cycles, the value Member 05 should use for AMAT.
+
+\textbf{Verification.} The testbench drives the fully integrated \path{cache_top} with no stubs. Nine directed tests cover reset in idle, a cold miss (aligned address, full wait, data/tag/valid installed in line 0 only, correct byte), a repeat hit with no memory request, another offset in the same block, conflict replacement (0x404 evicting 0x004), re-miss after eviction, two lines resident together, reset during MEM\_WAIT, and \path{req_valid} held high. Monitors check on every cycle that refill never occurs without \path{mem_ready}, that \path{mem_addr} is stable and aligned while requested, that \path{resp_valid} lasts one cycle and that \path{req_ready} is asserted only in IDLE. All 40 checks pass (\path{results/logs/cache_controller_final.log}). Fig.~\ref{fig:controller_waveform} is rendered from \path{results/waveforms/cache_controller_final.vcd}. The tests also failed, as intended, against two deliberately broken controllers: one that refilled before \path{mem_ready} and one that requested memory during lookup. This test covers controller behaviour; workload traces, statistics and AMAT remain Member 05's responsibility.
 
 \subsection{Member 05 - Dadi Dinesh}
 Assigned: system testbench; sequential, repeated, seeded random and conflict workloads; hit/miss reporting; AMAT; synthesis and performance evidence. \path{docs/system_test_requirements.md} defines the hand-off, but no full-system testbench or performance/synthesis results are present. Existing decoder and storage tests belong to the delivered Member 01/02 work. The future contribution is to demonstrate data correctness and quantify complete-cache behavior after integration.
@@ -138,7 +147,7 @@ The video remains unrecorded. Before submission, the team must record a demonstr
 \onecolumn
 \appendices
 \section{Architecture Figures}
-All diagrams retain editable Mermaid sources. Green marks implemented and tested primitives; amber marks partial wiring; dashed gray marks pending behavior. The controller state model is proposed only.
+All diagrams retain editable Mermaid sources. Green marks implemented and tested primitives; amber marks partial wiring; dashed gray marks pending behavior. The controller FSM (Fig.~\ref{fig:controller_fsm}) and waveform (Fig.~\ref{fig:controller_waveform}) reflect the implemented and simulated RTL.
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.98\textwidth,height=0.54\textheight,keepaspectratio]{system_architecture.pdf}
@@ -159,7 +168,12 @@ All diagrams retain editable Mermaid sources. Green marks implemented and tested
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.98\textwidth,height=0.62\textheight,keepaspectratio]{controller_fsm.pdf}
-\caption{Proposed controller state model, not extracted RTL. All states and transitions await implementation. The illustrative names originate in controller\_requirements.md; the refill/response transition must consume a valid returned block and preserve one response per request.}\label{fig:controller_fsm}
+\caption{Implemented controller FSM from cache\_controller.v. Refill (data, tag and valid write) occurs on the MEM\_WAIT$\rightarrow$RESPOND edge while mem\_block is valid; RESPOND produces exactly one resp\_valid pulse. Hit = 2 cycles, miss = LATENCY + 4 cycles.}\label{fig:controller_fsm}
+\end{figure}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.5\textheight,keepaspectratio]{controller_waveform.pdf}
+\caption{Simulated miss then hit, rendered from cache\_controller\_final.vcd (tests T2--T3). A cold miss to 0x00000004 raises mem\_req for the aligned block 0x00000000, waits for memory, refills on the mem\_ready cycle and returns 0xA1 with resp\_hit = 0. The repeated request hits in two cycles without a memory request.}\label{fig:controller_waveform}
 \end{figure}
 \clearpage
 \begin{figure}[!ht]

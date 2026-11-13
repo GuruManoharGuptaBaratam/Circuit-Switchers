@@ -1,0 +1,70 @@
+VCD info: dumpfile results/waveforms/cache_controller_final.vcd opened for output.
+============================================================
+ tb_cache_controller : Member 04 controller + memory tests
+ Memory latency = 4 cycles
+============================================================
+
+[T1] Reset during idle
+  PASS: controller state is IDLE after reset
+  PASS: req_ready high after reset
+  PASS: resp_valid low after reset
+  PASS: mem_req low after reset
+  PASS: all 64 valid bits cleared
+
+[T2] Cold miss at 0x00000004
+  PASS: mem_addr is aligned block 0x00000000
+  PASS: resp_hit = 0 (miss)
+  PASS: exactly one memory request issued
+  PASS: controller held mem_req until mem_ready (LATENCY+1 cycles)
+  PASS: returned byte equals memory[0x04]
+  PASS: miss latency = LATENCY + 4 cycles
+  PASS: line 0 valid bit set by refill
+  PASS: line 0 tag = 0x000000
+  PASS: line 0 data = memory block 0x00000000
+  PASS: no other line became valid
+
+[T3] Repeat 0x00000004 -> hit
+  PASS: resp_hit = 1 (hit)
+  PASS: no memory request on hit
+  PASS: no refill on hit
+  PASS: hit returns correct byte
+  PASS: hit latency = 2 cycles
+
+[T4] Same block, offset 15 (0x0000000F) -> hit
+  PASS: hit without memory request
+  PASS: offset 15 returns correct byte
+
+[T5] Conflict 0x00000404 (index 0, tag 1) -> miss + replace
+  PASS: conflict is a miss with one memory request
+  PASS: returns memory[0x404], not the old line
+  PASS: line 0 tag replaced with 0x000001
+  PASS: line 0 data replaced with block 0x400
+
+[T6] 0x00000004 again -> miss (evicted)
+  PASS: evicted block misses again
+  PASS: correct byte after re-fill
+
+[T7] Different index 0x00000013 -> miss, then both lines hit
+  PASS: line 1 cold miss
+  PASS: line 1 returns correct byte
+  PASS: line 0 still resident (hit)
+  PASS: line 1 still resident (hit)
+
+[T8] Reset while waiting for memory
+  PASS: memory busy with in-flight request
+  PASS: reset returns controller to IDLE
+  PASS: reset cancels in-flight memory request
+  PASS: reset clears all valid bits
+  PASS: no stale mem_ready/refill/response after reset
+  PASS: post-reset access misses and is correct
+
+[T9] req_valid held high across a transaction
+  PASS: one response per accepted request (2 accepts -> 2 responses)
+  PASS: protocol monitors M1-M5 reported no violations
+
+============================================================
+ Tests run: 40  Passed: 40  Failed: 0
+ Memory requests issued: 6  Refill writes: 5
+ RESULT: ALL TESTS PASSED
+============================================================
+tb/tb_cache_controller.v:347: $finish called at 870000 (1ps)
