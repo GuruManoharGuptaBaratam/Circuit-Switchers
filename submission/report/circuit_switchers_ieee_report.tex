@@ -92,8 +92,9 @@ These are directed checks, not exhaustive coverage. Storage data patterns exerci
 Check & Observed result\\\midrule
 Decoder unit simulation & 6 run; 6 passed; 0 failed\\
 Storage unit simulation & 22 run; 22 passed; 0 failed\\
+Lookup unit simulation & 41 run; 41 passed; 0 failed\\
 Top level with stubs & Elaboration succeeded\\
-Top level without stubs & Exit 6; four module types absent\\
+Top level without stubs & Exit 3; two module types absent\\
 Full-cache transactions & Not run; dependencies absent\\
 \bottomrule\end{tabular}
 \end{table}
@@ -114,7 +115,7 @@ Assigned: address decoder, top-level integration, interface contract and archite
 Assigned: Cache Data RAM, Tag RAM and Valid-Bit RAM. Delivered: \path{rtl/cache_data_ram.v}, \path{rtl/tag_ram.v}, \path{rtl/valid_bit_ram.v}, \path{tb/tb_cache_storage.v}, storage documentation and a passing log. Commits \path{5662211}, \path{f434789}, \path{114d788} and \path{d6e5ccc} appear under Git author Harsith Priyan Sivanandham. All 22 directed storage checks pass. These modules provide the cache's data and metadata storage; integrated refill behavior is not yet verified.
 
 \subsection{Member 03 - Pranavi Mathur}
-Assigned: Tag Comparator, Cache Lookup and Data Selector. Planned files are \path{rtl/tag_comparator.v}, \path{rtl/cache_lookup.v} and \path{rtl/data_selector.v}; none exists in the audited RTL directory. No functional verification for this assignment is available. The future contribution will validate tag identity, gate hits with the valid bit and select an 8-bit byte from a 128-bit block. Constant-output stubs are interface placeholders only.
+Assigned: Tag Comparator, Cache Lookup and Data Selector. Delivered: \path{rtl/tag_comparator.v}, \path{rtl/cache_lookup.v}, \path{rtl/data_selector.v}, \path{tb/tb_cache_lookup.v}, \path{docs/cache_lookup.md}, and automated test script \path{scripts/run_cache_lookup_test.sh}. All 41 directed test cases pass (recorded in \path{results/logs/cache_lookup_final.log} and \path{results/waveforms/cache_lookup_final.vcd}). This contribution implements 22-bit tag equality comparison, hit generation gated strictly with the line's valid bit (preventing false hits on uninitialized lines), and Little-Endian 16-to-1 byte multiplexing across all 16 offsets. Direct-mapped conflict addresses (0x00000000 and 0x00000400) were verified in coordination with Member 05. Elaboration in \path{cache_top.v} successfully verifies compatibility with Members 01 and 02.
 
 \subsection{Member 04 - Yatin Singh}
 Assigned: Cache Controller FSM, Main-Memory Model, memory request and refill sequencing. Planned files \path{rtl/cache_controller.v} and \path{rtl/main_memory_model.v} are absent. Requirements exist in \path{docs/controller_requirements.md} and the shared contract, but they are not delivered controller RTL. No state-transition, memory-response or refill test has run. This work must implement request capture, stable handshakes, refill timing and exactly-once completion.
