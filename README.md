@@ -4,7 +4,12 @@
 
 Circuit Switchers is a five-member Verilog project implementing a 1 KB direct-mapped cache with 16-byte blocks and 32-bit byte addresses. The submission deadline is **16 November 2026**.
 
-This repository contains Member 01's address decoder, top-level integration skeleton, and interface contract, and Member 02's tested cache storage. A runnable complete cache still depends on Members 03 and 04's RTL and Member 05's system verification.
+This repository contains:
+- Member 01's address decoder, top-level integration skeleton, and interface contract;
+- Member 02's tested cache storage (data RAM, tag RAM, and valid-bit RAM);
+- Member 03's tested tag comparator, cache lookup decision logic, and 16-to-1 data selector.
+
+A runnable complete cache still depends on Member 04's controller FSM & main-memory model and Member 05's system verification.
 
 ## Cache configuration
 
@@ -24,13 +29,13 @@ This repository contains Member 01's address decoder, top-level integration skel
 
 ## Team roles
 
-| Member | Responsibility |
-|---|---|
-| Member 01 | Address decoder, top-level integration, shared interfaces, architecture |
-| Member 02 | Cache data RAM, tag RAM, valid-bit RAM |
-| Member 03 | Tag comparison, hit logic, byte selection |
-| Member 04 | Controller FSM and deterministic main-memory model |
-| Member 05 | System testbenches, traces, metrics, waveforms, synthesis evidence |
+| Member | Responsibility | Status |
+|---|---|---|
+| Member 01 | Address decoder, top-level integration, shared interfaces, architecture | Delivered |
+| Member 02 | Cache data RAM, tag RAM, valid-bit RAM | Delivered |
+| Member 03 | Tag comparison, hit logic, byte selection | Delivered |
+| Member 04 | Controller FSM and deterministic main-memory model | In progress |
+| Member 05 | System testbenches, traces, metrics, waveforms, synthesis evidence | In progress |
 
 ## Repository layout
 
@@ -42,6 +47,7 @@ Circuit-Switchers/
 |   |-- address_breakdown.md
 |   |-- interface_contract.md
 |   |-- cache_storage.md
+|   |-- cache_lookup.md
 |   |-- address_decoder_test_plan.md
 |   |-- controller_requirements.md
 |   |-- system_test_requirements.md
@@ -51,15 +57,22 @@ Circuit-Switchers/
 |   |-- cache_top.v
 |   |-- cache_data_ram.v
 |   |-- tag_ram.v
-|   `-- valid_bit_ram.v
+|   |-- valid_bit_ram.v
+|   |-- tag_comparator.v
+|   |-- cache_lookup.v
+|   `-- data_selector.v
 |-- tb/
 |   |-- tb_address_decoder.v
 |   |-- tb_cache_storage.v
+|   |-- tb_cache_lookup.v
 |   `-- stubs/
 |       `-- cache_top_dependency_stubs.v
 |-- scripts/
 |   |-- run_address_decoder_test.sh
-|   `-- check_cache_top.sh
+|   |-- run_cache_storage_test.sh
+|   |-- run_cache_lookup_test.sh
+|   |-- check_cache_top.sh
+|   `-- capture_phase1_evidence.py
 |-- results/
 |   |-- logs/
 |   |-- waveforms/
@@ -69,7 +82,7 @@ Circuit-Switchers/
     `-- README_Submission.txt
 ```
 
-No placeholder implementation has been added under `rtl/` for Members 03 and 04. Compile-only stubs live under `tb/stubs/` so the top-level connections can be elaborated without occupying the owning members' RTL filenames.
+Compile-only stubs live under `tb/stubs/` only for Member 04's pending controller FSM and main memory model so the top-level connections can be elaborated.
 
 ## Member 01 implementation
 
@@ -139,19 +152,7 @@ From the repository root:
 ./scripts/run_address_decoder_test.sh
 ```
 
-The script checks prerequisites, creates output directories, compiles the decoder and testbench, runs the simulation, and fails with nonzero status if compilation, simulation, or waveform generation fails.
-
-Equivalent manual commands:
-
-```bash
-mkdir -p build results/logs results/waveforms
-iverilog -g2012 -Wall -s tb_address_decoder \
-  -o build/address_decoder_sim \
-  rtl/address_decoder.v tb/tb_address_decoder.v
-vvp build/address_decoder_sim
-```
-
-Expected successful summary:
+Expected summary:
 
 ```text
 SUMMARY: 6 run, 6 passed, 0 failed
@@ -159,18 +160,9 @@ ALL ADDRESS DECODER TESTS PASSED
 ```
 
 Generated files:
-
 - `results/logs/address_decoder_compile.log`
 - `results/logs/address_decoder_final.log`
 - `results/waveforms/address_decoder.vcd`
-
-To inspect the waveform after a successful simulation:
-
-```bash
-gtkwave results/waveforms/address_decoder.vcd
-```
-
-Add `address`, `tag`, `index`, and `offset` to the GTKWave view.
 
 ## Member 02 implementation
 
@@ -182,21 +174,17 @@ Add `address`, `tag`, `index`, and `offset` to the GTKWave view.
 - tag: 64 x 22 bits, combinational read, synchronous write, no reset
 - valid: 64 bits, combinational read, synchronous update, active-high synchronous clear of every bit
 
-`reset` on the valid-bit RAM has priority over `write_en`. These modules store and return values. Hit detection and refill sequencing stay in the lookup and controller modules. Dimensions, timing, and the presentation notes are in `docs/cache_storage.md`.
+`reset` on the valid-bit RAM has priority over `write_en`. These modules store and return values. Hit detection and refill sequencing stay in the lookup and controller modules. Dimensions, timing, and presentation notes are in `docs/cache_storage.md`.
 
 ### Run the storage test
 
 From the repository root:
 
 ```bash
-mkdir -p build results/logs results/waveforms
-iverilog -g2012 -Wall -s tb_cache_storage \
-  -o build/cache_storage_sim \
-  rtl/cache_data_ram.v rtl/tag_ram.v rtl/valid_bit_ram.v tb/tb_cache_storage.v
-vvp build/cache_storage_sim
+./scripts/run_cache_storage_test.sh
 ```
 
-Expected successful summary:
+Expected summary:
 
 ```text
 SUMMARY: 22 run, 22 passed, 0 failed
@@ -204,34 +192,80 @@ ALL CACHE STORAGE TESTS PASSED
 ```
 
 Generated files:
-
+- `results/logs/cache_storage_compile.log`
+- `results/logs/cache_storage_final.log`
 - `results/waveforms/cache_storage.vcd`
 
-The committed passing output is `results/logs/cache_storage_final.log`.
+## Member 03 implementation
+
+### Cache lookup, tag check, and data selection
+
+Member 03 delivers three synthesizable combinational modules:
+
+1. **`rtl/tag_comparator.v`**: Compares the 22-bit requested tag with the 22-bit stored tag read from tag RAM.
+2. **`rtl/cache_lookup.v`**: Instantiates `tag_comparator` and computes the exact hit decision:
+   $$\text{hit} = \text{stored\_valid} \land \text{tags\_match}$$
+   If `stored_valid == 1'b0`, `hit` is guaranteed to be `1'b0` even if uninitialized/leftover tag bits match.
+3. **`rtl/data_selector.v`**: Pure combinational 16-to-1 byte multiplexer extracting the requested byte from a 128-bit block using the 4-bit offset:
+   $$\text{selected\_byte} = \text{block\_data}[(8 \times \text{byte\_offset}) +: 8]$$
+   Instantiated twice in `cache_top.v` (for cached hit readback and refill bypass).
+
+Design notes, hand-off timing, and walkthrough examples are in `docs/cache_lookup.md`.
+
+### Run the cache lookup test
+
+From the repository root:
+
+```bash
+./scripts/run_cache_lookup_test.sh
+```
+
+Equivalent manual commands:
+
+```bash
+mkdir -p build results/logs results/waveforms
+iverilog -g2012 -Wall -s tb_cache_lookup \
+  -o build/cache_lookup_sim \
+  rtl/tag_comparator.v rtl/cache_lookup.v rtl/data_selector.v tb/tb_cache_lookup.v
+vvp build/cache_lookup_sim
+```
+
+Expected summary:
+
+```text
+SUMMARY: 41 run, 41 passed, 0 failed
+ALL CACHE LOOKUP TESTS PASSED
+```
+
+Generated files:
+- `results/logs/cache_lookup_compile.log`
+- `results/logs/cache_lookup_final.log`
+- `results/waveforms/cache_lookup.vcd`
+
+To view the waveforms in GTKWave:
+
+```bash
+gtkwave results/waveforms/cache_lookup.vcd
+```
 
 ## Full-cache integration status
 
-`rtl/cache_top.v` is an integration skeleton. Member 02's storage modules match its storage ports. Lookup, controller, and main-memory modules are still required before it can operate as a complete cache.
+`rtl/cache_top.v` is an integration skeleton. Member 01's decoder, Member 02's storage modules, and Member 03's lookup/selection modules are fully integrated and match all ports. Member 04's controller and main-memory modules are still required for full system operation.
 
-The current skeleton can be compiled and its module ports elaborated with build-only stubs:
+To test compilation and elaboration of `cache_top` with real RTL and remaining Member 04 stubs:
 
 ```bash
 ./scripts/check_cache_top.sh
 ```
 
-The stubs intentionally provide no cache behavior and must not be included in functional simulation after the real modules arrive. A full-cache simulation command will be added by Member 05 after those dependencies exist.
-
 Pending RTL:
 
-- `rtl/tag_comparator.v`
-- `rtl/cache_lookup.v`
-- `rtl/data_selector.v`
-- `rtl/cache_controller.v`
-- `rtl/main_memory_model.v`
+- `rtl/cache_controller.v` (Member 04)
+- `rtl/main_memory_model.v` (Member 04)
 
 ## Collaboration workflow
 
-1. Create a branch for one workstream, for example `feature/cache-storage`.
+1. Create a branch for one workstream, for example `feature/member-3-cache-lookup`.
 2. Implement and unit-test only the files owned by that workstream.
 3. Confirm ports against `docs/interface_contract.md`.
 4. Push the branch and open a pull request.
@@ -247,6 +281,7 @@ Never force-push shared branches, commit generated simulation binaries, or silen
 - `docs/interface_contract.md` defines exact ports and handshake behavior.
 - `docs/architecture.md` explains the system flow and includes a Mermaid diagram.
 - `docs/cache_storage.md` explains the storage dimensions, reset behavior, and controls.
+- `docs/cache_lookup.md` explains tag comparison, valid-bit gating, byte-ordering conventions, and walkthrough examples.
 - `docs/address_decoder_test_plan.md` records Member 01's unit test.
 - `docs/controller_requirements.md` hands the frozen controller requirements to Member 04 without occupying Member 04's final `docs/fsm_design.md`.
 - `docs/system_test_requirements.md` hands verification requirements to Member 05 without occupying Member 05's final `docs/test_plan.md`.

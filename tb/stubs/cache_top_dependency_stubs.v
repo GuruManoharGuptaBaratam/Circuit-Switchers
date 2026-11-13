@@ -1,34 +1,10 @@
 `timescale 1ns/1ps
 
 // Compile-only placeholders for cache_top dependencies that belong to
-// Members 03 and 04. These modules deliberately provide no cache behavior.
+// Member 04 (Controller FSM and Main-Memory Model).
+// These modules deliberately provide no cache behavior.
 // Include this file only for the top-level interface/elaboration check, and
 // replace each stub with the owning member's RTL during functional simulation.
-
-module tag_comparator (
-    input  wire [21:0] requested_tag,
-    input  wire [21:0] stored_tag,
-    output wire        tags_match
-);
-    assign tags_match = 1'b0;
-endmodule
-
-module cache_lookup (
-    input  wire [21:0] requested_tag,
-    input  wire [21:0] stored_tag,
-    input  wire        stored_valid,
-    output wire        hit
-);
-    assign hit = 1'b0;
-endmodule
-
-module data_selector (
-    input  wire [127:0] block_data,
-    input  wire [3:0]   byte_offset,
-    output wire [7:0]   selected_byte
-);
-    assign selected_byte = 8'b0;
-endmodule
 
 module cache_controller (
     input  wire        clk,

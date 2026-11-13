@@ -2,6 +2,7 @@
 """Reproduce component evidence; never treat stub elaboration as system testing."""
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -13,8 +14,13 @@ LOGS = ROOT / 'results/logs'
 WAVES = ROOT / 'results/waveforms'
 LOGS.mkdir(parents=True, exist_ok=True)
 
+# Ensure Homebrew path is in PATH if needed
+env = dict(os.environ)
+if '/opt/homebrew/bin' not in env.get('PATH', ''):
+    env['PATH'] = f"/opt/homebrew/bin:{env.get('PATH', '')}"
+
 def run(args, logfile=None):
-    result = subprocess.run(args, cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    result = subprocess.run(args, cwd=ROOT, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     if logfile:
         (LOGS / logfile).write_text('$ ' + ' '.join(args) + '\n' + result.stdout + f'\nEXIT STATUS: {result.returncode}\n')
     return result
@@ -22,6 +28,7 @@ def run(args, logfile=None):
 records = []
 for script, log in [('run_address_decoder_test.sh', 'address_decoder_audit_final.log'),
                     ('run_cache_storage_test.sh', 'cache_storage_audit_final.log'),
+                    ('run_cache_lookup_test.sh', 'cache_lookup_audit_final.log'),
                     ('check_cache_top.sh', 'cache_top_audit_final.log')]:
     result = run(['bash', 'scripts/' + script], log)
     print(result.stdout)
@@ -29,7 +36,7 @@ for script, log in [('run_address_decoder_test.sh', 'address_decoder_audit_final
     if result.returncode:
         raise SystemExit(result.returncode)
 
-for name in ['address_decoder', 'cache_storage']:
+for name in ['address_decoder', 'cache_storage', 'cache_lookup']:
     source = WAVES / (name + '.vcd')
     if not source.is_file() or source.stat().st_size == 0:
         raise SystemExit('Missing waveform: ' + str(source))

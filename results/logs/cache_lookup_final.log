@@ -1,0 +1,48 @@
+VCD info: dumpfile results/waveforms/cache_lookup.vcd opened for output.
+Cache lookup and data selection unit test
+-----------------------------------------
+PASS: tc: zero tags match (0x000000 == 0x000000)
+PASS: tc: max 22-bit tags match (0x3FFFFF == 0x3FFFFF)
+PASS: tc: pattern 0x2AAAAA matches
+PASS: tc: pattern 0x155555 matches
+PASS: tc: mismatch at LSB (bit 0) (0x000000 != 0x000001)
+PASS: tc: mismatch at MSB (bit 21) (0x000000 != 0x200000)
+PASS: tc: mismatch at middle bit 10 (0x000400 != 0x000000)
+PASS: tc: completely inverted tags mismatch
+PASS: cl: valid=1 and tag match produces HIT
+PASS: cl: valid=0 and tag match produces MISS (empty line protection)
+PASS: cl: valid=1 and tag mismatch produces MISS (conflict)
+PASS: cl: valid=0 and tag mismatch produces MISS (cold invalid)
+PASS: cl: zero tag with valid=1 produces HIT
+PASS: cl: zero tag with valid=0 produces MISS (reset state check)
+PASS: cl: max tag with valid=1 produces HIT
+PASS: cl: max tag with valid=0 produces MISS
+PASS: ds block A: offset 0 selects 0xA0
+PASS: ds block A: offset 1 selects 0xA1
+PASS: ds block A: offset 2 selects 0xA2
+PASS: ds block A: offset 3 selects 0xA3
+PASS: ds block A: offset 4 selects 0xA4
+PASS: ds block A: offset 5 selects 0xA5
+PASS: ds block A: offset 6 selects 0xA6
+PASS: ds block A: offset 7 selects 0xA7
+PASS: ds block A: offset 8 selects 0xA8
+PASS: ds block A: offset 9 selects 0xA9
+PASS: ds block A: offset 10 selects 0xAA
+PASS: ds block A: offset 11 selects 0xAB
+PASS: ds block A: offset 12 selects 0xAC
+PASS: ds block A: offset 13 selects 0xAD
+PASS: ds block A: offset 14 selects 0xAE
+PASS: ds block A: offset 15 selects 0xAF
+PASS: ds pattern B: offset 0 selects 0x0F (lowest byte)
+PASS: ds pattern B: offset 7 selects 0x78
+PASS: ds pattern B: offset 8 selects 0x87
+PASS: ds pattern B: offset 15 selects 0xF0 (highest byte)
+PASS: conflict 1: cold cache line 0 access A is MISS
+PASS: conflict 2: line 0 holding block A produces HIT for address A
+PASS: conflict 3: access B with same index, different tag is MISS
+PASS: flict 4: line 0 refilled with block B produces HIT for address B
+PASS: conflict 5: alternating back to address A produces conflict MISS
+-----------------------------------------
+SUMMARY: 41 run, 41 passed, 0 failed
+ALL CACHE LOOKUP TESTS PASSED
+tb/tb_cache_lookup.v:299: $finish called at 61000 (1ps)

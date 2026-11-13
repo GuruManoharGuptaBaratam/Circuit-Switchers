@@ -19,7 +19,7 @@ SUMMARY: 6 run, 6 passed, 0 failed
 ALL ADDRESS DECODER TESTS PASSED
 tb/tb_address_decoder.v:80: $finish called at 6000 (1ps)
 SUCCESS: address decoder tests completed.
-Test log: /Users/baratamgurumanohargupta/Desktop/My Projects/Circuit Switchers/Circuit-Switchers/results/logs/address_decoder_final.log
-Waveform: /Users/baratamgurumanohargupta/Desktop/My Projects/Circuit Switchers/Circuit-Switchers/results/waveforms/address_decoder.vcd
+Test log: /Users/pranavimathur/Desktop/MCA_project/Circuit-Switchers/results/logs/address_decoder_final.log
+Waveform: /Users/pranavimathur/Desktop/MCA_project/Circuit-Switchers/results/waveforms/address_decoder.vcd
 
 EXIT STATUS: 0

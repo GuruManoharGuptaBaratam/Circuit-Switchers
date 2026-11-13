@@ -7,6 +7,13 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 cd "${REPO_ROOT}"
 
+# Ensure Homebrew path is checked if not in standard PATH
+if ! command -v iverilog >/dev/null 2>&1; then
+    if [ -x "/opt/homebrew/bin/iverilog" ]; then
+        export PATH="/opt/homebrew/bin:$PATH"
+    fi
+fi
+
 if ! command -v iverilog >/dev/null 2>&1; then
     echo "ERROR: Icarus Verilog (iverilog) is not installed or not on PATH." >&2
     echo "See README.md for installation instructions." >&2
@@ -18,7 +25,7 @@ mkdir -p build results/logs
 COMPILE_LOG="results/logs/cache_top_compile_check.log"
 COMPILE_OUTPUT="build/cache_top_compile_check"
 
-echo "Checking cache_top ports and elaboration with build-only stubs..."
+echo "Checking cache_top ports and elaboration with delivered RTL and remaining stubs..."
 iverilog -g2012 -Wall \
     -s cache_top \
     -o "${COMPILE_OUTPUT}" \
@@ -26,6 +33,9 @@ iverilog -g2012 -Wall \
     rtl/cache_data_ram.v \
     rtl/tag_ram.v \
     rtl/valid_bit_ram.v \
+    rtl/tag_comparator.v \
+    rtl/cache_lookup.v \
+    rtl/data_selector.v \
     rtl/cache_top.v \
     tb/stubs/cache_top_dependency_stubs.v \
     2>&1 | tee "${COMPILE_LOG}"
