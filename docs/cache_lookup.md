@@ -258,3 +258,4 @@ Split:
    - The 4-bit offset `4'hA` (decimal 10) selects byte lane 10:
      $$\text{selected\_byte} = \text{stored\_block}[87:80]$$
    - On a hit, this byte is immediately returned as `cache_byte_data` to complete the request.
+

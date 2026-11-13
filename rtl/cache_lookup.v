@@ -46,3 +46,4 @@ module cache_lookup (
     assign hit = stored_valid & tags_match;
 
 endmodule
+

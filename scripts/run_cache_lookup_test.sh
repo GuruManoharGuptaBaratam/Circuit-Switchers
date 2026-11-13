@@ -40,3 +40,4 @@ test -s "${WAVEFORM}"
 echo "SUCCESS: cache lookup unit tests and waveform generation completed."
 echo "Test log: ${REPO_ROOT}/${SIM_LOG}"
 echo "Waveform: ${REPO_ROOT}/${WAVEFORM}"
+

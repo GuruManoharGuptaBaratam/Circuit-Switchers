@@ -23,3 +23,4 @@ module tag_comparator (
     assign tags_match = (requested_tag == stored_tag);
 
 endmodule
+
