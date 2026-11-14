@@ -1,0 +1,3537 @@
+Yosys 0.71+34 (git sha1 e419c4eef, Release, Clang /usr/local/osxcross/target/bin/aarch64-apple-darwin25.5-clang++ 21.1.8)
+Scope: cache_core with external memory ports, flattened generic gates
+Command: yosys -p 'read_verilog rtl/address_decoder.v rtl/cache_controller.v rtl/cache_data_ram.v rtl/cache_lookup.v rtl/data_selector.v rtl/tag_comparator.v rtl/tag_ram.v rtl/valid_bit_ram.v build/cache_core.v; synth -top cache_core -flatten; check -assert; tee -o build/synthesis_stat.json stat -json'
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.71+34 (git sha1 e419c4eef, Release, Clang /usr/local/osxcross/target/bin/aarch64-apple-darwin25.5-clang++ 21.1.8)
+
+-- Running command `read_verilog rtl/address_decoder.v rtl/cache_controller.v rtl/cache_data_ram.v rtl/cache_lookup.v rtl/data_selector.v rtl/tag_comparator.v rtl/tag_ram.v rtl/valid_bit_ram.v build/cache_core.v; synth -top cache_core -flatten; check -assert; tee -o build/synthesis_stat.json stat -json' --
+
+1. Executing Verilog-2005 frontend: rtl/address_decoder.v
+Parsing Verilog input from `rtl/address_decoder.v' to AST representation.
+Generating RTLIL representation for module `\address_decoder'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: rtl/cache_controller.v
+Parsing Verilog input from `rtl/cache_controller.v' to AST representation.
+Generating RTLIL representation for module `\cache_controller'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: rtl/cache_data_ram.v
+Parsing Verilog input from `rtl/cache_data_ram.v' to AST representation.
+Generating RTLIL representation for module `\cache_data_ram'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: rtl/cache_lookup.v
+Parsing Verilog input from `rtl/cache_lookup.v' to AST representation.
+Generating RTLIL representation for module `\cache_lookup'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: rtl/data_selector.v
+Parsing Verilog input from `rtl/data_selector.v' to AST representation.
+Generating RTLIL representation for module `\data_selector'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: rtl/tag_comparator.v
+Parsing Verilog input from `rtl/tag_comparator.v' to AST representation.
+Generating RTLIL representation for module `\tag_comparator'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: rtl/tag_ram.v
+Parsing Verilog input from `rtl/tag_ram.v' to AST representation.
+Generating RTLIL representation for module `\tag_ram'.
+Successfully finished Verilog frontend.
+
+8. Executing Verilog-2005 frontend: rtl/valid_bit_ram.v
+Parsing Verilog input from `rtl/valid_bit_ram.v' to AST representation.
+Generating RTLIL representation for module `\valid_bit_ram'.
+Successfully finished Verilog frontend.
+
+9. Executing Verilog-2005 frontend: build/cache_core.v
+Parsing Verilog input from `build/cache_core.v' to AST representation.
+Generating RTLIL representation for module `\cache_core'.
+Successfully finished Verilog frontend.
+
+10. Executing SYNTH pass.
+
+10.1. Executing HIERARCHY pass (managing design hierarchy).
+
+10.1.1. Analyzing design hierarchy..
+Top module:  \cache_core
+Used module:     \cache_controller
+Used module:     \data_selector
+Used module:     \cache_lookup
+Used module:         \tag_comparator
+Used module:     \valid_bit_ram
+Used module:     \tag_ram
+Used module:     \cache_data_ram
+Used module:     \address_decoder
+
+10.1.2. Analyzing design hierarchy..
+Top module:  \cache_core
+Used module:     \cache_controller
+Used module:     \data_selector
+Used module:     \cache_lookup
+Used module:         \tag_comparator
+Used module:     \valid_bit_ram
+Used module:     \tag_ram
+Used module:     \cache_data_ram
+Used module:     \address_decoder
+Removed 0 unused modules.
+
+10.2. Executing PROC pass (convert processes to netlists).
+
+10.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+10.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $rtl/valid_bit_ram.v:22$proc$33 in module valid_bit_ram.
+Marked 1 switch rules as full_case in process $rtl/tag_ram.v:21$proc$23 in module tag_ram.
+Removed 1 dead cases from process $rtl/data_selector.v:44$proc$19 in module data_selector.
+Marked 1 switch rules as full_case in process $rtl/data_selector.v:44$proc$19 in module data_selector.
+Marked 1 switch rules as full_case in process $rtl/cache_data_ram.v:21$proc$11 in module cache_data_ram.
+Marked 1 switch rules as full_case in process $rtl/cache_controller.v:103$proc$8 in module cache_controller.
+Removed 1 dead cases from process $rtl/cache_controller.v:89$proc$6 in module cache_controller.
+Marked 3 switch rules as full_case in process $rtl/cache_controller.v:89$proc$6 in module cache_controller.
+Removed a total of 2 dead cases.
+
+10.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 1 redundant assignment.
+Promoted 11 assignments to connections.
+
+10.2.4. Executing PROC_INIT pass (extract init attributes).
+
+10.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+10.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~13 debug messages>
+
+10.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\valid_bit_ram.$rtl/valid_bit_ram.v:22$proc$33'.
+     1/4: $2$lookahead\valid_bits$32[63:0]$39
+     2/4: $2$bitselwrite$pos$rtl/valid_bit_ram.v:26$30[5:0]$38
+     3/4: $1$lookahead\valid_bits$32[63:0]$37
+     4/4: $1$bitselwrite$pos$rtl/valid_bit_ram.v:26$30[5:0]$36
+Creating decoders for process `\tag_ram.$rtl/tag_ram.v:21$proc$23'.
+     1/3: $1$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$29
+     2/3: $1$memwr$\mem$rtl/tag_ram.v:23$21_DATA[21:0]$28
+     3/3: $1$memwr$\mem$rtl/tag_ram.v:23$21_ADDR[5:0]$27
+Creating decoders for process `\data_selector.$rtl/data_selector.v:44$proc$19'.
+     1/1: $1\selected_byte[7:0]
+Creating decoders for process `\cache_data_ram.$rtl/cache_data_ram.v:21$proc$11'.
+     1/3: $1$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$17
+     2/3: $1$memwr$\mem$rtl/cache_data_ram.v:23$9_DATA[127:0]$16
+     3/3: $1$memwr$\mem$rtl/cache_data_ram.v:23$9_ADDR[5:0]$15
+Creating decoders for process `\cache_controller.$rtl/cache_controller.v:103$proc$8'.
+     1/6: $0\state[1:0]
+     2/6: $0\resp_hit[0:0]
+     3/6: $0\resp_data[7:0]
+     4/6: $0\active_offset[3:0]
+     5/6: $0\active_index[5:0]
+     6/6: $0\active_tag[21:0]
+Creating decoders for process `\cache_controller.$rtl/cache_controller.v:89$proc$6'.
+     1/3: $3\next_state[1:0]
+     2/3: $2\next_state[1:0]
+     3/3: $1\next_state[1:0]
+
+10.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\data_selector.\selected_byte' from process `\data_selector.$rtl/data_selector.v:44$proc$19'.
+No latch inferred for signal `\cache_controller.\next_state' from process `\cache_controller.$rtl/cache_controller.v:89$proc$6'.
+
+10.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\valid_bit_ram.\valid_bits' using process `\valid_bit_ram.$rtl/valid_bit_ram.v:22$proc$33'.
+  created $dff cell `$procdff$169' with positive edge clock.
+Creating register for signal `\valid_bit_ram.$bitselwrite$pos$rtl/valid_bit_ram.v:26$30' using process `\valid_bit_ram.$rtl/valid_bit_ram.v:22$proc$33'.
+  created $dff cell `$procdff$170' with positive edge clock.
+Creating register for signal `\valid_bit_ram.$lookahead\valid_bits$32' using process `\valid_bit_ram.$rtl/valid_bit_ram.v:22$proc$33'.
+  created $dff cell `$procdff$171' with positive edge clock.
+Creating register for signal `\tag_ram.$memwr$\mem$rtl/tag_ram.v:23$21_ADDR' using process `\tag_ram.$rtl/tag_ram.v:21$proc$23'.
+  created $dff cell `$procdff$172' with positive edge clock.
+Creating register for signal `\tag_ram.$memwr$\mem$rtl/tag_ram.v:23$21_DATA' using process `\tag_ram.$rtl/tag_ram.v:21$proc$23'.
+  created $dff cell `$procdff$173' with positive edge clock.
+Creating register for signal `\tag_ram.$memwr$\mem$rtl/tag_ram.v:23$21_EN' using process `\tag_ram.$rtl/tag_ram.v:21$proc$23'.
+  created $dff cell `$procdff$174' with positive edge clock.
+Creating register for signal `\cache_data_ram.$memwr$\mem$rtl/cache_data_ram.v:23$9_ADDR' using process `\cache_data_ram.$rtl/cache_data_ram.v:21$proc$11'.
+  created $dff cell `$procdff$175' with positive edge clock.
+Creating register for signal `\cache_data_ram.$memwr$\mem$rtl/cache_data_ram.v:23$9_DATA' using process `\cache_data_ram.$rtl/cache_data_ram.v:21$proc$11'.
+  created $dff cell `$procdff$176' with positive edge clock.
+Creating register for signal `\cache_data_ram.$memwr$\mem$rtl/cache_data_ram.v:23$9_EN' using process `\cache_data_ram.$rtl/cache_data_ram.v:21$proc$11'.
+  created $dff cell `$procdff$177' with positive edge clock.
+Creating register for signal `\cache_controller.\active_tag' using process `\cache_controller.$rtl/cache_controller.v:103$proc$8'.
+  created $dff cell `$procdff$178' with positive edge clock.
+Creating register for signal `\cache_controller.\active_index' using process `\cache_controller.$rtl/cache_controller.v:103$proc$8'.
+  created $dff cell `$procdff$179' with positive edge clock.
+Creating register for signal `\cache_controller.\active_offset' using process `\cache_controller.$rtl/cache_controller.v:103$proc$8'.
+  created $dff cell `$procdff$180' with positive edge clock.
+Creating register for signal `\cache_controller.\resp_data' using process `\cache_controller.$rtl/cache_controller.v:103$proc$8'.
+  created $dff cell `$procdff$181' with positive edge clock.
+Creating register for signal `\cache_controller.\resp_hit' using process `\cache_controller.$rtl/cache_controller.v:103$proc$8'.
+  created $dff cell `$procdff$182' with positive edge clock.
+Creating register for signal `\cache_controller.\state' using process `\cache_controller.$rtl/cache_controller.v:103$proc$8'.
+  created $dff cell `$procdff$183' with positive edge clock.
+
+10.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+10.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 2 empty switches in `\valid_bit_ram.$rtl/valid_bit_ram.v:22$proc$33'.
+Removing empty process `valid_bit_ram.$rtl/valid_bit_ram.v:22$proc$33'.
+Found and cleaned up 1 empty switch in `\tag_ram.$rtl/tag_ram.v:21$proc$23'.
+Removing empty process `tag_ram.$rtl/tag_ram.v:21$proc$23'.
+Found and cleaned up 1 empty switch in `\data_selector.$rtl/data_selector.v:44$proc$19'.
+Removing empty process `data_selector.$rtl/data_selector.v:44$proc$19'.
+Found and cleaned up 1 empty switch in `\cache_data_ram.$rtl/cache_data_ram.v:21$proc$11'.
+Removing empty process `cache_data_ram.$rtl/cache_data_ram.v:21$proc$11'.
+Found and cleaned up 5 empty switches in `\cache_controller.$rtl/cache_controller.v:103$proc$8'.
+Removing empty process `cache_controller.$rtl/cache_controller.v:103$proc$8'.
+Found and cleaned up 3 empty switches in `\cache_controller.$rtl/cache_controller.v:89$proc$6'.
+Removing empty process `cache_controller.$rtl/cache_controller.v:89$proc$6'.
+Cleaned up 13 empty switches.
+
+10.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+Optimizing module valid_bit_ram.
+Optimizing module tag_ram.
+Optimizing module tag_comparator.
+Optimizing module data_selector.
+<suppressed ~1 debug messages>
+Optimizing module cache_lookup.
+Optimizing module cache_data_ram.
+Optimizing module cache_controller.
+<suppressed ~6 debug messages>
+Optimizing module address_decoder.
+
+10.3. Executing CHECK pass (checking for obvious problems).
+Checking module cache_core...
+Checking module valid_bit_ram...
+Checking module tag_ram...
+Checking module tag_comparator...
+Checking module data_selector...
+Checking module cache_lookup...
+Checking module cache_data_ram...
+Checking module cache_controller...
+Checking module address_decoder...
+Found and reported 0 problems.
+
+10.4. Executing FLATTEN pass (flatten design).
+Deleting now unused module valid_bit_ram.
+Deleting now unused module tag_ram.
+Deleting now unused module tag_comparator.
+Deleting now unused module data_selector.
+Deleting now unused module cache_lookup.
+Deleting now unused module cache_data_ram.
+Deleting now unused module cache_controller.
+Deleting now unused module address_decoder.
+<suppressed ~9 debug messages>
+
+10.5. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.6. Executing CHECK pass (checking for obvious problems).
+Checking module cache_core...
+Found and reported 0 problems.
+
+10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+Removed 11 unused cells and 83 unused wires.
+<suppressed ~12 debug messages>
+
+10.8. Executing OPT pass (performing simple optimizations).
+
+10.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 115 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 85 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 84 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+<suppressed ~93 debug messages>
+Removed a total of 31 cells.
+
+10.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \cache_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $flatten\u_cache_controller.$procmux$154.
+    dead port 1/2 on $mux $flatten\u_valid_bit_ram.$procmux$51.
+    dead port 2/2 on $mux $flatten\u_cache_controller.$procmux$162.
+Removed 3 multiplexer ports.
+<suppressed ~48 debug messages>
+
+10.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \cache_core.
+    Consolidated identical input bits for $mux cell $flatten\u_tag_ram.$procmux$66:
+      Old ports: A=22'0000000000000000000000, B=22'1111111111111111111111, Y=$flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26
+      New ports: A=1'0, B=1'1, Y=$flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0]
+      New connections: $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [21:1] = { $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] $flatten\u_tag_ram.$0$memwr$\mem$rtl/tag_ram.v:23$21_EN[21:0]$26 [0] }
+    Consolidated identical input bits for $mux cell $flatten\u_cache_data_ram.$procmux$92:
+      Old ports: A=128'00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, B=128'11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111, Y=$flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14
+      New ports: A=1'0, B=1'1, Y=$flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0]
+      New connections: $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [127:1] = { $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] $flatten\u_cache_data_ram.$0$memwr$\mem$rtl/cache_data_ram.v:23$9_EN[127:0]$14 [0] }
+  Optimizing cells in module \cache_core.
+Performed a total of 2 changes.
+
+10.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 81 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 79 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+10.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+Removed 0 unused cells and 36 unused wires.
+<suppressed ~1 debug messages>
+
+10.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \cache_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~41 debug messages>
+
+10.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \cache_core.
+Performed a total of 0 changes.
+
+10.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 79 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Removed a total of 0 cells.
+
+10.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+
+10.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.8.16. Finished fast OPT passes. (There is nothing left to do.)
+
+10.9. Executing FSM pass (extract and optimize FSM).
+
+10.9.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register cache_core.u_cache_controller.state.
+
+10.9.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\u_cache_controller.state' from module `\cache_core'.
+  found $dff cell for state register: $flatten\u_cache_controller.$procdff$183
+  root of input selection tree: $flatten\u_cache_controller.$0\state[1:0]
+  found reset state: 2'00 (guessed from mux tree)
+  found ctrl input: \reset
+  found ctrl input: \resp_valid
+  found ctrl input: \mem_req
+  found ctrl input: $flatten\u_cache_controller.$procmux$109_CMP
+  found ctrl input: \req_ready
+  found state code: 2'00
+  found ctrl input: \mem_ready
+  found state code: 2'11
+  found ctrl input: \u_cache_controller.lookup_hit
+  found state code: 2'10
+  found ctrl input: \req_valid
+  found state code: 2'01
+  found ctrl output: \resp_valid
+  found ctrl output: \req_ready
+  found ctrl output: \mem_req
+  found ctrl output: $flatten\u_cache_controller.$procmux$109_CMP
+  ctrl inputs: { \u_cache_controller.lookup_hit \mem_ready \req_valid \reset }
+  ctrl outputs: { $flatten\u_cache_controller.$0\state[1:0] $flatten\u_cache_controller.$procmux$109_CMP \resp_valid \mem_req \req_ready }
+  transition:       2'00 4'--00 ->       2'00 6'000001
+  transition:       2'00 4'--10 ->       2'01 6'010001
+  transition:       2'00 4'---1 ->       2'00 6'000001
+  transition:       2'10 4'-0-0 ->       2'10 6'100010
+  transition:       2'10 4'-1-0 ->       2'11 6'110010
+  transition:       2'10 4'---1 ->       2'00 6'000010
+  transition:       2'01 4'0--0 ->       2'10 6'101000
+  transition:       2'01 4'1--0 ->       2'11 6'111000
+  transition:       2'01 4'---1 ->       2'00 6'001000
+  transition:       2'11 4'---0 ->       2'00 6'000100
+  transition:       2'11 4'---1 ->       2'00 6'000100
+
+10.9.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\u_cache_controller.state$195' from module `\cache_core'.
+  Merging pattern 4'---0 and 4'---1 from group (3 0 6'000100).
+  Merging pattern 4'---1 and 4'---0 from group (3 0 6'000100).
+
+10.9.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+Removed 10 unused cells and 10 unused wires.
+<suppressed ~12 debug messages>
+
+10.9.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\u_cache_controller.state$195' from module `\cache_core'.
+  Removing unused output signal $flatten\u_cache_controller.$0\state[1:0] [0].
+  Removing unused output signal $flatten\u_cache_controller.$0\state[1:0] [1].
+
+10.9.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\u_cache_controller.state$195' from module `\cache_core' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  00 -> ---1
+  10 -> --1-
+  01 -> -1--
+  11 -> 1---
+
+10.9.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\u_cache_controller.state$195' from module `cache_core':
+-------------------------------------
+
+  Information on FSM $fsm$\u_cache_controller.state$195 (\u_cache_controller.state):
+
+  Number of input signals:    4
+  Number of output signals:   4
+  Number of state bits:       4
+
+  Input signals:
+    0: \reset
+    1: \req_valid
+    2: \mem_ready
+    3: \u_cache_controller.lookup_hit
+
+  Output signals:
+    0: \req_ready
+    1: \mem_req
+    2: \resp_valid
+    3: $flatten\u_cache_controller.$procmux$109_CMP
+
+  State encoding:
+    0:     4'---1  <RESET STATE>
+    1:     4'--1-
+    2:     4'-1--
+    3:     4'1---
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 4'--00   ->     0 4'0001
+      1:     0 4'---1   ->     0 4'0001
+      2:     0 4'--10   ->     2 4'0001
+      3:     1 4'---1   ->     0 4'0010
+      4:     1 4'-0-0   ->     1 4'0010
+      5:     1 4'-1-0   ->     3 4'0010
+      6:     2 4'---1   ->     0 4'1000
+      7:     2 4'0--0   ->     1 4'1000
+      8:     2 4'1--0   ->     3 4'1000
+      9:     3 4'----   ->     0 4'0100
+
+-------------------------------------
+
+10.9.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\u_cache_controller.state$195' from module `\cache_core'.
+
+10.10. Executing OPT pass (performing simple optimizations).
+
+10.10.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+<suppressed ~4 debug messages>
+
+10.10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 85 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Removed a total of 0 cells.
+
+10.10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \cache_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~35 debug messages>
+
+10.10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \cache_core.
+Performed a total of 0 changes.
+
+10.10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 85 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Removed a total of 0 cells.
+
+10.10.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $flatten\u_cache_controller.$procdff$182 ($dff) from module cache_core (D = $flatten\u_cache_controller.$procmux$105_Y, Q = \u_cache_controller.resp_hit, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$234 ($sdff) from module cache_core (D = $flatten\u_cache_controller.$procmux$105_Y, Q = \u_cache_controller.resp_hit).
+Adding SRST signal on $flatten\u_cache_controller.$procdff$181 ($dff) from module cache_core (D = $flatten\u_cache_controller.$procmux$115_Y, Q = \u_cache_controller.resp_data, rval = 8'00000000).
+Adding EN signal on $auto$ff.cc:337:slice$244 ($sdff) from module cache_core (D = $flatten\u_cache_controller.$procmux$115_Y, Q = \u_cache_controller.resp_data).
+Adding SRST signal on $flatten\u_cache_controller.$procdff$180 ($dff) from module cache_core (D = $flatten\u_cache_controller.$procmux$127_Y, Q = \u_cache_controller.active_offset, rval = 4'0000).
+Adding EN signal on $auto$ff.cc:337:slice$254 ($sdff) from module cache_core (D = \req_addr [3:0], Q = \u_cache_controller.active_offset).
+Adding SRST signal on $flatten\u_valid_bit_ram.$procdff$169 ($dff) from module cache_core (D = $flatten\u_valid_bit_ram.$2$lookahead\valid_bits$32[63:0]$39, Q = \u_valid_bit_ram.valid_bits, rval = 64'0000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$258 ($sdff) from module cache_core (D = $flatten\u_valid_bit_ram.$rtl/valid_bit_ram.v:26$or$46_Y, Q = \u_valid_bit_ram.valid_bits).
+Adding SRST signal on $flatten\u_cache_controller.$procdff$179 ($dff) from module cache_core (D = $flatten\u_cache_controller.$procmux$136_Y, Q = \u_cache_controller.active_index, rval = 6'000000).
+Adding EN signal on $auto$ff.cc:337:slice$260 ($sdff) from module cache_core (D = \req_addr [9:4], Q = \u_cache_controller.active_index).
+Adding SRST signal on $flatten\u_cache_controller.$procdff$178 ($dff) from module cache_core (D = $flatten\u_cache_controller.$procmux$145_Y, Q = \u_cache_controller.active_tag, rval = 22'0000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$264 ($sdff) from module cache_core (D = \req_addr [31:10], Q = \u_cache_controller.active_tag).
+
+10.10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+Removed 13 unused cells and 18 unused wires.
+<suppressed ~14 debug messages>
+
+10.10.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+<suppressed ~2 debug messages>
+
+10.10.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \cache_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~18 debug messages>
+
+10.10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \cache_core.
+Performed a total of 0 changes.
+
+10.10.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 83 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 78 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 77 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+<suppressed ~18 debug messages>
+Removed a total of 6 cells.
+
+10.10.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+10.10.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.10.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.10.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \cache_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~18 debug messages>
+
+10.10.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \cache_core.
+Performed a total of 0 changes.
+
+10.10.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 77 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Removed a total of 0 cells.
+
+10.10.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.10.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+
+10.10.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.10.23. Finished fast OPT passes. (There is nothing left to do.)
+
+10.11. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell cache_core.$auto$simple.cc:214:make_patterns_logic$241 ($ne).
+Converting cell cache_core.$flatten\u_valid_bit_ram.$rtl/valid_bit_ram.v:26$neg$40 ($neg) from signed to unsigned.
+Removed top 1 bits (of 7) from port A of cell cache_core.$flatten\u_valid_bit_ram.$rtl/valid_bit_ram.v:26$neg$40 ($neg).
+Removed top 3 bits (of 4) from port B of cell cache_core.$flatten\u_refill_data_selector.$procmux$89_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell cache_core.$flatten\u_refill_data_selector.$procmux$88_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell cache_core.$flatten\u_refill_data_selector.$procmux$87_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell cache_core.$flatten\u_refill_data_selector.$procmux$86_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell cache_core.$flatten\u_refill_data_selector.$procmux$85_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell cache_core.$flatten\u_refill_data_selector.$procmux$84_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell cache_core.$flatten\u_refill_data_selector.$procmux$83_CMP0 ($eq).
+
+10.12. Executing PEEPOPT pass (run peephole optimizers).
+
+10.13. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+
+10.14. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module cache_core:
+  creating $macc model for $flatten\u_valid_bit_ram.$rtl/valid_bit_ram.v:26$neg$40 ($neg).
+  creating $alu model for $macc $flatten\u_valid_bit_ram.$rtl/valid_bit_ram.v:26$neg$40.
+  creating $alu cell for $flatten\u_valid_bit_ram.$rtl/valid_bit_ram.v:26$neg$40: $auto$alumacc.cc:578:replace_alu$268
+  created 1 $alu and 0 $macc cells.
+
+10.15. Executing SHARE pass (SAT-based resource sharing).
+
+10.16. Executing OPT pass (performing simple optimizations).
+
+10.16.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.16.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 77 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Removed a total of 0 cells.
+
+10.16.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \cache_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~18 debug messages>
+
+10.16.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \cache_core.
+Performed a total of 0 changes.
+
+10.16.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 77 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Removed a total of 0 cells.
+
+10.16.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.16.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+
+10.16.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.16.9. Finished fast OPT passes. (There is nothing left to do.)
+
+10.17. Executing MEMORY pass.
+
+10.17.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+10.17.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+10.17.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+  Analyzing cache_core.u_tag_ram.mem write port 0.
+  Analyzing cache_core.u_cache_data_ram.mem write port 0.
+
+10.17.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+10.17.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `\u_tag_ram.mem'[0] in module `\cache_core':
+    no output FF found.
+Checking read port `\u_cache_data_ram.mem'[0] in module `\cache_core':
+    no output FF found.
+Checking read port address `\u_tag_ram.mem'[0] in module `\cache_core':
+    merged address FF to cell.
+Checking read port address `\u_cache_data_ram.mem'[0] in module `\cache_core':
+    merged address FF to cell.
+
+10.17.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+
+10.17.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+10.17.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+10.17.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+
+10.17.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+10.18. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+
+10.19. Executing OPT pass (performing simple optimizations).
+
+10.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+<suppressed ~12 debug messages>
+
+10.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 71 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 70 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 69 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+10.19.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.19.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+Removed 1 unused cells and 11 unused wires.
+<suppressed ~2 debug messages>
+
+10.19.5. Finished fast OPT passes.
+
+10.20. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+Mapping memory \u_tag_ram.mem in module \cache_core:
+  created 64 $dff cells and 0 static cells of width 22.
+Extracted addr FF from read port 0 of cache_core.u_tag_ram.mem: $\u_tag_ram.mem$rdreg[0]
+  read interface: 1 $dff and 63 $mux cells.
+  write interface: 64 write mux blocks.
+Mapping memory \u_cache_data_ram.mem in module \cache_core:
+  created 64 $dff cells and 0 static cells of width 128.
+Extracted addr FF from read port 0 of cache_core.u_cache_data_ram.mem: $\u_cache_data_ram.mem$rdreg[0]
+  read interface: 1 $dff and 63 $mux cells.
+  write interface: 64 write mux blocks.
+
+10.21. Executing OPT pass (performing simple optimizations).
+
+10.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+<suppressed ~13 debug messages>
+
+10.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 672 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 607 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+<suppressed ~195 debug messages>
+Removed a total of 65 cells.
+
+10.21.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \cache_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~1399 debug messages>
+
+10.21.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \cache_core.
+Performed a total of 0 changes.
+
+10.21.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 607 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Removed a total of 0 cells.
+
+10.21.6. Executing OPT_SHARE pass.
+
+10.21.7. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $\u_cache_data_ram.mem$rdreg[0] ($dff) from module cache_core (D = $auto$rtlil.cc:3333:Mux$275, Q = $\u_cache_data_ram.mem$rdreg[0]$q, rval = 6'000000).
+
+10.21.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+Removed 1 unused cells and 328 unused wires.
+<suppressed ~2 debug messages>
+
+10.21.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.21.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.21.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \cache_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~1398 debug messages>
+
+10.21.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \cache_core.
+Performed a total of 0 changes.
+
+10.21.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 606 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Removed a total of 0 cells.
+
+10.21.14. Executing OPT_SHARE pass.
+
+10.21.15. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $memory\u_tag_ram.mem[0]$283 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[0]).
+Adding EN signal on $memory\u_tag_ram.mem[1]$285 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[1]).
+Adding EN signal on $memory\u_tag_ram.mem[2]$287 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[2]).
+Adding EN signal on $memory\u_tag_ram.mem[3]$289 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[3]).
+Adding EN signal on $memory\u_tag_ram.mem[4]$291 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[4]).
+Adding EN signal on $memory\u_tag_ram.mem[5]$293 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[5]).
+Adding EN signal on $memory\u_tag_ram.mem[6]$295 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[6]).
+Adding EN signal on $memory\u_tag_ram.mem[7]$297 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[7]).
+Adding EN signal on $memory\u_tag_ram.mem[8]$299 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[8]).
+Adding EN signal on $memory\u_tag_ram.mem[9]$301 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[9]).
+Adding EN signal on $memory\u_tag_ram.mem[10]$303 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[10]).
+Adding EN signal on $memory\u_tag_ram.mem[11]$305 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[11]).
+Adding EN signal on $memory\u_tag_ram.mem[12]$307 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[12]).
+Adding EN signal on $memory\u_tag_ram.mem[13]$309 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[13]).
+Adding EN signal on $memory\u_tag_ram.mem[14]$311 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[14]).
+Adding EN signal on $memory\u_tag_ram.mem[15]$313 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[15]).
+Adding EN signal on $memory\u_tag_ram.mem[16]$315 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[16]).
+Adding EN signal on $memory\u_tag_ram.mem[17]$317 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[17]).
+Adding EN signal on $memory\u_tag_ram.mem[18]$319 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[18]).
+Adding EN signal on $memory\u_tag_ram.mem[19]$321 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[19]).
+Adding EN signal on $memory\u_tag_ram.mem[20]$323 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[20]).
+Adding EN signal on $memory\u_tag_ram.mem[21]$325 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[21]).
+Adding EN signal on $memory\u_tag_ram.mem[22]$327 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[22]).
+Adding EN signal on $memory\u_tag_ram.mem[23]$329 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[23]).
+Adding EN signal on $memory\u_tag_ram.mem[24]$331 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[24]).
+Adding EN signal on $memory\u_tag_ram.mem[25]$333 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[25]).
+Adding EN signal on $memory\u_tag_ram.mem[26]$335 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[26]).
+Adding EN signal on $memory\u_tag_ram.mem[27]$337 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[27]).
+Adding EN signal on $memory\u_tag_ram.mem[28]$339 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[28]).
+Adding EN signal on $memory\u_tag_ram.mem[29]$341 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[29]).
+Adding EN signal on $memory\u_tag_ram.mem[30]$343 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[30]).
+Adding EN signal on $memory\u_tag_ram.mem[31]$345 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[31]).
+Adding EN signal on $memory\u_tag_ram.mem[32]$347 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[32]).
+Adding EN signal on $memory\u_tag_ram.mem[33]$349 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[33]).
+Adding EN signal on $memory\u_tag_ram.mem[34]$351 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[34]).
+Adding EN signal on $memory\u_tag_ram.mem[35]$353 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[35]).
+Adding EN signal on $memory\u_tag_ram.mem[36]$355 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[36]).
+Adding EN signal on $memory\u_tag_ram.mem[37]$357 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[37]).
+Adding EN signal on $memory\u_tag_ram.mem[38]$359 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[38]).
+Adding EN signal on $memory\u_tag_ram.mem[39]$361 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[39]).
+Adding EN signal on $memory\u_tag_ram.mem[40]$363 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[40]).
+Adding EN signal on $memory\u_tag_ram.mem[41]$365 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[41]).
+Adding EN signal on $memory\u_tag_ram.mem[42]$367 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[42]).
+Adding EN signal on $memory\u_tag_ram.mem[43]$369 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[43]).
+Adding EN signal on $memory\u_tag_ram.mem[44]$371 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[44]).
+Adding EN signal on $memory\u_tag_ram.mem[45]$373 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[45]).
+Adding EN signal on $memory\u_tag_ram.mem[46]$375 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[46]).
+Adding EN signal on $memory\u_tag_ram.mem[47]$377 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[47]).
+Adding EN signal on $memory\u_tag_ram.mem[48]$379 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[48]).
+Adding EN signal on $memory\u_tag_ram.mem[49]$381 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[49]).
+Adding EN signal on $memory\u_tag_ram.mem[50]$383 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[50]).
+Adding EN signal on $memory\u_tag_ram.mem[51]$385 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[51]).
+Adding EN signal on $memory\u_tag_ram.mem[52]$387 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[52]).
+Adding EN signal on $memory\u_tag_ram.mem[53]$389 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[53]).
+Adding EN signal on $memory\u_tag_ram.mem[54]$391 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[54]).
+Adding EN signal on $memory\u_tag_ram.mem[55]$393 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[55]).
+Adding EN signal on $memory\u_tag_ram.mem[56]$395 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[56]).
+Adding EN signal on $memory\u_tag_ram.mem[57]$397 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[57]).
+Adding EN signal on $memory\u_tag_ram.mem[58]$399 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[58]).
+Adding EN signal on $memory\u_tag_ram.mem[59]$401 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[59]).
+Adding EN signal on $memory\u_tag_ram.mem[60]$403 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[60]).
+Adding EN signal on $memory\u_tag_ram.mem[61]$405 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[61]).
+Adding EN signal on $memory\u_tag_ram.mem[62]$407 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[62]).
+Adding EN signal on $memory\u_tag_ram.mem[63]$409 ($dff) from module cache_core (D = \u_cache_controller.active_tag, Q = \u_tag_ram.mem[63]).
+Adding EN signal on $memory\u_cache_data_ram.mem[0]$1056 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[0]).
+Adding EN signal on $memory\u_cache_data_ram.mem[1]$1058 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[1]).
+Adding EN signal on $memory\u_cache_data_ram.mem[2]$1060 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[2]).
+Adding EN signal on $memory\u_cache_data_ram.mem[3]$1062 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[3]).
+Adding EN signal on $memory\u_cache_data_ram.mem[4]$1064 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[4]).
+Adding EN signal on $memory\u_cache_data_ram.mem[5]$1066 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[5]).
+Adding EN signal on $memory\u_cache_data_ram.mem[6]$1068 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[6]).
+Adding EN signal on $memory\u_cache_data_ram.mem[7]$1070 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[7]).
+Adding EN signal on $memory\u_cache_data_ram.mem[8]$1072 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[8]).
+Adding EN signal on $memory\u_cache_data_ram.mem[9]$1074 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[9]).
+Adding EN signal on $memory\u_cache_data_ram.mem[10]$1076 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[10]).
+Adding EN signal on $memory\u_cache_data_ram.mem[11]$1078 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[11]).
+Adding EN signal on $memory\u_cache_data_ram.mem[12]$1080 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[12]).
+Adding EN signal on $memory\u_cache_data_ram.mem[13]$1082 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[13]).
+Adding EN signal on $memory\u_cache_data_ram.mem[14]$1084 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[14]).
+Adding EN signal on $memory\u_cache_data_ram.mem[15]$1086 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[15]).
+Adding EN signal on $memory\u_cache_data_ram.mem[16]$1088 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[16]).
+Adding EN signal on $memory\u_cache_data_ram.mem[17]$1090 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[17]).
+Adding EN signal on $memory\u_cache_data_ram.mem[18]$1092 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[18]).
+Adding EN signal on $memory\u_cache_data_ram.mem[19]$1094 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[19]).
+Adding EN signal on $memory\u_cache_data_ram.mem[20]$1096 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[20]).
+Adding EN signal on $memory\u_cache_data_ram.mem[21]$1098 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[21]).
+Adding EN signal on $memory\u_cache_data_ram.mem[22]$1100 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[22]).
+Adding EN signal on $memory\u_cache_data_ram.mem[23]$1102 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[23]).
+Adding EN signal on $memory\u_cache_data_ram.mem[24]$1104 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[24]).
+Adding EN signal on $memory\u_cache_data_ram.mem[25]$1106 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[25]).
+Adding EN signal on $memory\u_cache_data_ram.mem[26]$1108 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[26]).
+Adding EN signal on $memory\u_cache_data_ram.mem[27]$1110 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[27]).
+Adding EN signal on $memory\u_cache_data_ram.mem[28]$1112 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[28]).
+Adding EN signal on $memory\u_cache_data_ram.mem[29]$1114 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[29]).
+Adding EN signal on $memory\u_cache_data_ram.mem[30]$1116 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[30]).
+Adding EN signal on $memory\u_cache_data_ram.mem[31]$1118 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[31]).
+Adding EN signal on $memory\u_cache_data_ram.mem[32]$1120 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[32]).
+Adding EN signal on $memory\u_cache_data_ram.mem[33]$1122 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[33]).
+Adding EN signal on $memory\u_cache_data_ram.mem[34]$1124 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[34]).
+Adding EN signal on $memory\u_cache_data_ram.mem[35]$1126 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[35]).
+Adding EN signal on $memory\u_cache_data_ram.mem[36]$1128 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[36]).
+Adding EN signal on $memory\u_cache_data_ram.mem[37]$1130 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[37]).
+Adding EN signal on $memory\u_cache_data_ram.mem[38]$1132 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[38]).
+Adding EN signal on $memory\u_cache_data_ram.mem[39]$1134 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[39]).
+Adding EN signal on $memory\u_cache_data_ram.mem[40]$1136 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[40]).
+Adding EN signal on $memory\u_cache_data_ram.mem[41]$1138 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[41]).
+Adding EN signal on $memory\u_cache_data_ram.mem[42]$1140 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[42]).
+Adding EN signal on $memory\u_cache_data_ram.mem[43]$1142 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[43]).
+Adding EN signal on $memory\u_cache_data_ram.mem[44]$1144 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[44]).
+Adding EN signal on $memory\u_cache_data_ram.mem[45]$1146 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[45]).
+Adding EN signal on $memory\u_cache_data_ram.mem[46]$1148 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[46]).
+Adding EN signal on $memory\u_cache_data_ram.mem[47]$1150 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[47]).
+Adding EN signal on $memory\u_cache_data_ram.mem[48]$1152 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[48]).
+Adding EN signal on $memory\u_cache_data_ram.mem[49]$1154 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[49]).
+Adding EN signal on $memory\u_cache_data_ram.mem[50]$1156 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[50]).
+Adding EN signal on $memory\u_cache_data_ram.mem[51]$1158 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[51]).
+Adding EN signal on $memory\u_cache_data_ram.mem[52]$1160 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[52]).
+Adding EN signal on $memory\u_cache_data_ram.mem[53]$1162 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[53]).
+Adding EN signal on $memory\u_cache_data_ram.mem[54]$1164 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[54]).
+Adding EN signal on $memory\u_cache_data_ram.mem[55]$1166 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[55]).
+Adding EN signal on $memory\u_cache_data_ram.mem[56]$1168 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[56]).
+Adding EN signal on $memory\u_cache_data_ram.mem[57]$1170 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[57]).
+Adding EN signal on $memory\u_cache_data_ram.mem[58]$1172 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[58]).
+Adding EN signal on $memory\u_cache_data_ram.mem[59]$1174 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[59]).
+Adding EN signal on $memory\u_cache_data_ram.mem[60]$1176 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[60]).
+Adding EN signal on $memory\u_cache_data_ram.mem[61]$1178 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[61]).
+Adding EN signal on $memory\u_cache_data_ram.mem[62]$1180 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[62]).
+Adding EN signal on $memory\u_cache_data_ram.mem[63]$1182 ($dff) from module cache_core (D = \mem_block, Q = \u_cache_data_ram.mem[63]).
+
+10.21.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+Removed 128 unused cells and 128 unused wires.
+<suppressed ~129 debug messages>
+
+10.21.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.21.18. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.21.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \cache_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~1142 debug messages>
+
+10.21.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \cache_core.
+Performed a total of 0 changes.
+
+10.21.21. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 478 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Removed a total of 0 cells.
+
+10.21.22. Executing OPT_SHARE pass.
+
+10.21.23. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.21.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+
+10.21.25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.21.26. Finished fast OPT passes. (There is nothing left to do.)
+
+10.22. Executing TECHMAP pass (map to technology primitives).
+
+10.22.1. Executing Verilog-2005 frontend: /private/tmp/circuit-tools/oss-cad-suite/libexec/../share/yosys/techmap.v
+Parsing Verilog input from `/private/tmp/circuit-tools/oss-cad-suite/libexec/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+10.22.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $sdffe.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $dff.
+Using template $paramod$25417eb1ceb444220a2cc387484bf7cf31b9177f\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $not.
+Using template $paramod$constmap:c741d8d15ca6ce9584b08ae063f00a8f71c9280d$paramod$26de505cffdea93ae4a65cab40d30691657b5725\_90_shift_shiftx for cells of type $shift.
+Using template $paramod$constmap:dba4f2067ffa567551fb10fb06b704ab22ef6e36$paramod$05fd02ee8975e559bee57b6e5e564b3ecd2ab687\_90_shift_shiftx for cells of type $shiftx.
+Using extmapper simplemap for cells of type $pmux.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $sdff.
+Using extmapper simplemap for cells of type $dffe.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000111 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000111 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+No more expansions possible.
+<suppressed ~1244 debug messages>
+
+10.23. Executing OPT pass (performing simple optimizations).
+
+10.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+<suppressed ~895 debug messages>
+
+10.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 20753 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 20707 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 20684 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 20682 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 20681 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+<suppressed ~216 debug messages>
+Removed a total of 72 cells.
+
+10.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+Removed 322 unused cells and 162 unused wires.
+<suppressed ~323 debug messages>
+
+10.23.5. Finished fast OPT passes.
+
+10.24. Executing ABC pass (technology mapping using ABC).
+
+10.24.1. Summary of detected clock domains:
+  9 cells in clk={ }, en={ }, arst={ }, srst={ }
+  458 cells in clk=\clk, en={ }, arst={ }, srst={ }
+  144 cells in clk=\clk, en=$auto$simple.cc:230:make_patterns_logic$242, arst={ }, srst=\reset
+  424 cells in clk=\clk, en=\refill_write_en, arst={ }, srst=\reset
+  132 cells in clk=\clk, en=$auto$simple.cc:230:make_patterns_logic$256, arst={ }, srst=\reset
+  9392 cells in clk=\clk, en={ }, arst={ }, srst=\reset
+  156 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[0][0][0]$y$1374, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[1][0][0]$y$1378, arst={ }, srst={ }
+  155 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[2][0][0]$y$1382, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[3][0][0]$y$1386, arst={ }, srst={ }
+  155 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[4][0][0]$y$1390, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[5][0][0]$y$1394, arst={ }, srst={ }
+  155 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[6][0][0]$y$1398, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[7][0][0]$y$1402, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[8][0][0]$y$1406, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[9][0][0]$y$1410, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[10][0][0]$y$1414, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[11][0][0]$y$1418, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[12][0][0]$y$1422, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[13][0][0]$y$1426, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[14][0][0]$y$1430, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[15][0][0]$y$1434, arst={ }, srst={ }
+  155 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[16][0][0]$y$1438, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[17][0][0]$y$1442, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[18][0][0]$y$1446, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[19][0][0]$y$1450, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[20][0][0]$y$1454, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[21][0][0]$y$1458, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[22][0][0]$y$1462, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[23][0][0]$y$1466, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[24][0][0]$y$1470, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[25][0][0]$y$1474, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[26][0][0]$y$1478, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[27][0][0]$y$1482, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[28][0][0]$y$1486, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[29][0][0]$y$1490, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[30][0][0]$y$1494, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[31][0][0]$y$1498, arst={ }, srst={ }
+  155 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[32][0][0]$y$1502, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[33][0][0]$y$1506, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[34][0][0]$y$1510, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[35][0][0]$y$1514, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[36][0][0]$y$1518, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[37][0][0]$y$1522, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[38][0][0]$y$1526, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[39][0][0]$y$1530, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[40][0][0]$y$1534, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[41][0][0]$y$1538, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[42][0][0]$y$1542, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[43][0][0]$y$1546, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[44][0][0]$y$1550, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[45][0][0]$y$1554, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[46][0][0]$y$1558, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[47][0][0]$y$1562, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[48][0][0]$y$1566, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[49][0][0]$y$1570, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[50][0][0]$y$1574, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[51][0][0]$y$1578, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[52][0][0]$y$1582, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[53][0][0]$y$1586, arst={ }, srst={ }
+  153 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[54][0][0]$y$1590, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[55][0][0]$y$1594, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[56][0][0]$y$1598, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[57][0][0]$y$1602, arst={ }, srst={ }
+  154 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[58][0][0]$y$1606, arst={ }, srst={ }
+  152 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[59][0][0]$y$1610, arst={ }, srst={ }
+  153 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[60][0][0]$y$1614, arst={ }, srst={ }
+  153 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[61][0][0]$y$1618, arst={ }, srst={ }
+  153 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[62][0][0]$y$1622, arst={ }, srst={ }
+  153 cells in clk=\clk, en=$memory\u_cache_data_ram.mem$wren[63][0][0]$y$1626, arst={ }, srst={ }
+
+10.24.2. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+No matching clock domain found. Not extracting any FF cells.
+
+10.24.3. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk
+
+10.24.3.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+
+10.24.4. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $auto$simple.cc:230:make_patterns_logic$242, synchronously reset by \reset
+
+10.24.5. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by \refill_write_en, synchronously reset by \reset
+
+10.24.6. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $auto$simple.cc:230:make_patterns_logic$256, synchronously reset by \reset
+
+10.24.7. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, synchronously reset by \reset
+
+10.24.8. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[0][0][0]$y$1374
+
+10.24.9. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[1][0][0]$y$1378
+
+10.24.10. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[2][0][0]$y$1382
+
+10.24.11. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[3][0][0]$y$1386
+
+10.24.12. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[4][0][0]$y$1390
+
+10.24.13. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[5][0][0]$y$1394
+
+10.24.14. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[6][0][0]$y$1398
+
+10.24.15. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[7][0][0]$y$1402
+
+10.24.16. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[8][0][0]$y$1406
+
+10.24.17. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[9][0][0]$y$1410
+
+10.24.18. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[10][0][0]$y$1414
+
+10.24.19. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[11][0][0]$y$1418
+
+10.24.20. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[12][0][0]$y$1422
+
+10.24.21. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[13][0][0]$y$1426
+
+10.24.21.1. Executed ABC.
+Extracted 454 gates and 702 wires to a netlist network with 248 inputs and 13 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.21.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:      209
+ABC RESULTS:            ANDNOT cells:        1
+ABC RESULTS:               MUX cells:        3
+ABC RESULTS:              NAND cells:      239
+ABC RESULTS:               NOR cells:       11
+ABC RESULTS:               NOT cells:        1
+ABC RESULTS:                OR cells:       11
+ABC RESULTS:             ORNOT cells:        3
+ABC RESULTS:        internal signals:      441
+ABC RESULTS:           input signals:      248
+ABC RESULTS:          output signals:       13
+Removing temp directory.
+
+10.24.22. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[14][0][0]$y$1430
+
+10.24.23. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[15][0][0]$y$1434
+
+10.24.24. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[16][0][0]$y$1438
+
+10.24.25. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[17][0][0]$y$1442
+
+10.24.25.1. Executed ABC.
+Extracted 135 gates and 204 wires to a netlist network with 69 inputs and 20 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.25.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       46
+ABC RESULTS:            ANDNOT cells:        9
+ABC RESULTS:              NAND cells:       37
+ABC RESULTS:               NOR cells:       20
+ABC RESULTS:               NOT cells:        2
+ABC RESULTS:                OR cells:        4
+ABC RESULTS:             ORNOT cells:        1
+ABC RESULTS:        internal signals:      115
+ABC RESULTS:           input signals:       69
+ABC RESULTS:          output signals:       20
+Removing temp directory.
+
+10.24.25.1. Executed ABC.
+Extracted 360 gates and 439 wires to a netlist network with 78 inputs and 97 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.25.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       84
+ABC RESULTS:            ANDNOT cells:       29
+ABC RESULTS:               MUX cells:       32
+ABC RESULTS:               NOR cells:        2
+ABC RESULTS:                OR cells:       64
+ABC RESULTS:              XNOR cells:        3
+ABC RESULTS:               XOR cells:        2
+ABC RESULTS:        internal signals:      264
+ABC RESULTS:           input signals:       78
+ABC RESULTS:          output signals:       97
+Removing temp directory.
+
+10.24.25.1. Executed ABC.
+Extracted 100 gates and 195 wires to a netlist network with 94 inputs and 67 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.25.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       36
+ABC RESULTS:            ANDNOT cells:        5
+ABC RESULTS:               BUF cells:        1
+ABC RESULTS:               MUX cells:        6
+ABC RESULTS:              NAND cells:       50
+ABC RESULTS:               NOR cells:        4
+ABC RESULTS:               NOT cells:       10
+ABC RESULTS:                OR cells:        2
+ABC RESULTS:             ORNOT cells:        4
+ABC RESULTS:               XOR cells:       22
+ABC RESULTS:        internal signals:       34
+ABC RESULTS:           input signals:       94
+ABC RESULTS:          output signals:       67
+Removing temp directory.
+
+10.24.26. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[18][0][0]$y$1446
+
+10.24.27. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[19][0][0]$y$1450
+
+10.24.28. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[20][0][0]$y$1454
+
+10.24.29. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[21][0][0]$y$1458
+
+10.24.30. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[22][0][0]$y$1462
+
+10.24.31. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[23][0][0]$y$1466
+
+10.24.32. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[24][0][0]$y$1470
+
+10.24.33. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[25][0][0]$y$1474
+
+10.24.34. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[26][0][0]$y$1478
+
+10.24.35. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[27][0][0]$y$1482
+
+10.24.36. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[28][0][0]$y$1486
+
+10.24.37. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[29][0][0]$y$1490
+
+10.24.38. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[30][0][0]$y$1494
+
+10.24.39. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[31][0][0]$y$1498
+
+10.24.40. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[32][0][0]$y$1502
+
+10.24.41. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[33][0][0]$y$1506
+
+10.24.42. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[34][0][0]$y$1510
+
+10.24.43. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[35][0][0]$y$1514
+
+10.24.44. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[36][0][0]$y$1518
+
+10.24.45. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[37][0][0]$y$1522
+
+10.24.46. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[38][0][0]$y$1526
+
+10.24.47. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[39][0][0]$y$1530
+
+10.24.48. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[40][0][0]$y$1534
+
+10.24.49. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[41][0][0]$y$1538
+
+10.24.50. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[42][0][0]$y$1542
+
+10.24.51. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[43][0][0]$y$1546
+
+10.24.52. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[44][0][0]$y$1550
+
+10.24.53. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[45][0][0]$y$1554
+
+10.24.54. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[46][0][0]$y$1558
+
+10.24.55. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[47][0][0]$y$1562
+
+10.24.56. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[48][0][0]$y$1566
+
+10.24.57. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[49][0][0]$y$1570
+
+10.24.58. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[50][0][0]$y$1574
+
+10.24.59. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[51][0][0]$y$1578
+
+10.24.60. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[52][0][0]$y$1582
+
+10.24.61. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[53][0][0]$y$1586
+
+10.24.62. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[54][0][0]$y$1590
+
+10.24.63. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[55][0][0]$y$1594
+
+10.24.64. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[56][0][0]$y$1598
+
+10.24.65. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[57][0][0]$y$1602
+
+10.24.66. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[58][0][0]$y$1606
+
+10.24.67. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[59][0][0]$y$1610
+
+10.24.68. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[60][0][0]$y$1614
+
+10.24.69. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[61][0][0]$y$1618
+
+10.24.70. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[62][0][0]$y$1622
+
+10.24.71. Extracting gate netlist of module `\cache_core' to `<abc-temp-dir>/input.blif'..
+Found matching posedge clock domain: \clk, enabled by $memory\u_cache_data_ram.mem$wren[63][0][0]$y$1626
+
+10.24.71.1. Executed ABC.
+Extracted 9386 gates and 18928 wires to a netlist network with 9542 inputs and 150 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:     3862
+ABC RESULTS:            ANDNOT cells:      133
+ABC RESULTS:               MUX cells:     3394
+ABC RESULTS:              NAND cells:     5513
+ABC RESULTS:               NOR cells:     1123
+ABC RESULTS:                OR cells:     2908
+ABC RESULTS:             ORNOT cells:     4437
+ABC RESULTS:        internal signals:     9236
+ABC RESULTS:           input signals:     9542
+ABC RESULTS:          output signals:      150
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 6 gates and 16 wires to a netlist network with 10 inputs and 5 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        4
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:       10
+ABC RESULTS:          output signals:        5
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 5 gates and 14 wires to a netlist network with 9 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        3
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        9
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 5 gates and 14 wires to a netlist network with 9 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        3
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        9
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 5 gates and 14 wires to a netlist network with 9 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        3
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        9
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 5 gates and 14 wires to a netlist network with 9 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        3
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        9
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 5 gates and 14 wires to a netlist network with 9 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        3
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        9
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 3 gates and 9 wires to a netlist network with 6 inputs and 2 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        1
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        6
+ABC RESULTS:          output signals:        2
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 11 wires to a netlist network with 7 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        3
+ABC RESULTS:               MUX cells:        1
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        7
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 4 gates and 12 wires to a netlist network with 8 inputs and 3 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        8
+ABC RESULTS:          output signals:        3
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 2 gates and 5 wires to a netlist network with 3 inputs and 1 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 3 gates and 9 wires to a netlist network with 6 inputs and 2 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        1
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        6
+ABC RESULTS:          output signals:        2
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 3 gates and 9 wires to a netlist network with 6 inputs and 2 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        1
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        6
+ABC RESULTS:          output signals:        2
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 3 gates and 9 wires to a netlist network with 6 inputs and 2 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        1
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        6
+ABC RESULTS:          output signals:        2
+Removing temp directory.
+
+10.24.71.1. Executed ABC.
+Extracted 3 gates and 9 wires to a netlist network with 6 inputs and 2 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.24.71.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:               MUX cells:        1
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        6
+ABC RESULTS:          output signals:        2
+Removing temp directory.
+Removing global temp directory.
+
+10.25. Executing OPT pass (performing simple optimizations).
+
+10.25.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.25.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 32246 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Computing hashes of 32190 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+<suppressed ~168 debug messages>
+Removed a total of 56 cells.
+
+10.25.3. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $auto$ff.cc:337:slice$1922 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [63]).
+Adding EN signal on $auto$ff.cc:337:slice$1859 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [0]).
+Adding EN signal on $auto$ff.cc:337:slice$1860 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [1]).
+Adding EN signal on $auto$ff.cc:337:slice$1861 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [2]).
+Adding EN signal on $auto$ff.cc:337:slice$1862 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [3]).
+Adding EN signal on $auto$ff.cc:337:slice$1863 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [4]).
+Adding EN signal on $auto$ff.cc:337:slice$1864 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [5]).
+Adding EN signal on $auto$ff.cc:337:slice$1865 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [6]).
+Adding EN signal on $auto$ff.cc:337:slice$1866 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [7]).
+Adding EN signal on $auto$ff.cc:337:slice$1867 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [8]).
+Adding EN signal on $auto$ff.cc:337:slice$1868 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [9]).
+Adding EN signal on $auto$ff.cc:337:slice$1869 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [10]).
+Adding EN signal on $auto$ff.cc:337:slice$1870 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [11]).
+Adding EN signal on $auto$ff.cc:337:slice$1871 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [12]).
+Adding EN signal on $auto$ff.cc:337:slice$1872 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [13]).
+Adding EN signal on $auto$ff.cc:337:slice$1873 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [14]).
+Adding EN signal on $auto$ff.cc:337:slice$1874 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [15]).
+Adding EN signal on $auto$ff.cc:337:slice$1875 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [16]).
+Adding EN signal on $auto$ff.cc:337:slice$1876 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [17]).
+Adding EN signal on $auto$ff.cc:337:slice$1877 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [18]).
+Adding EN signal on $auto$ff.cc:337:slice$1878 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [19]).
+Adding EN signal on $auto$ff.cc:337:slice$1879 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [20]).
+Adding EN signal on $auto$ff.cc:337:slice$1880 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [21]).
+Adding EN signal on $auto$ff.cc:337:slice$1881 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [22]).
+Adding EN signal on $auto$ff.cc:337:slice$1882 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [23]).
+Adding EN signal on $auto$ff.cc:337:slice$1883 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [24]).
+Adding EN signal on $auto$ff.cc:337:slice$1884 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [25]).
+Adding EN signal on $auto$ff.cc:337:slice$1885 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [26]).
+Adding EN signal on $auto$ff.cc:337:slice$1886 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [27]).
+Adding EN signal on $auto$ff.cc:337:slice$1887 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [28]).
+Adding EN signal on $auto$ff.cc:337:slice$1888 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [29]).
+Adding EN signal on $auto$ff.cc:337:slice$1889 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [30]).
+Adding EN signal on $auto$ff.cc:337:slice$1890 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [31]).
+Adding EN signal on $auto$ff.cc:337:slice$1891 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [32]).
+Adding EN signal on $auto$ff.cc:337:slice$1892 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [33]).
+Adding EN signal on $auto$ff.cc:337:slice$1893 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [34]).
+Adding EN signal on $auto$ff.cc:337:slice$1894 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [35]).
+Adding EN signal on $auto$ff.cc:337:slice$1895 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [36]).
+Adding EN signal on $auto$ff.cc:337:slice$1896 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [37]).
+Adding EN signal on $auto$ff.cc:337:slice$1897 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [38]).
+Adding EN signal on $auto$ff.cc:337:slice$1898 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [39]).
+Adding EN signal on $auto$ff.cc:337:slice$1899 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [40]).
+Adding EN signal on $auto$ff.cc:337:slice$1900 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [41]).
+Adding EN signal on $auto$ff.cc:337:slice$1901 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [42]).
+Adding EN signal on $auto$ff.cc:337:slice$1902 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [43]).
+Adding EN signal on $auto$ff.cc:337:slice$1903 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [44]).
+Adding EN signal on $auto$ff.cc:337:slice$1904 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [45]).
+Adding EN signal on $auto$ff.cc:337:slice$1905 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [46]).
+Adding EN signal on $auto$ff.cc:337:slice$1906 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [47]).
+Adding EN signal on $auto$ff.cc:337:slice$1907 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [48]).
+Adding EN signal on $auto$ff.cc:337:slice$1908 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [49]).
+Adding EN signal on $auto$ff.cc:337:slice$1909 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [50]).
+Adding EN signal on $auto$ff.cc:337:slice$1910 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [51]).
+Adding EN signal on $auto$ff.cc:337:slice$1911 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [52]).
+Adding EN signal on $auto$ff.cc:337:slice$1912 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [53]).
+Adding EN signal on $auto$ff.cc:337:slice$1913 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [54]).
+Adding EN signal on $auto$ff.cc:337:slice$1914 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [55]).
+Adding EN signal on $auto$ff.cc:337:slice$1915 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [56]).
+Adding EN signal on $auto$ff.cc:337:slice$1916 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [57]).
+Adding EN signal on $auto$ff.cc:337:slice$1917 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [58]).
+Adding EN signal on $auto$ff.cc:337:slice$1918 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [59]).
+Adding EN signal on $auto$ff.cc:337:slice$1919 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [60]).
+Adding EN signal on $auto$ff.cc:337:slice$1920 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [61]).
+Adding EN signal on $auto$ff.cc:337:slice$1921 ($_SDFFE_PP0P_) from module cache_core (D = 1'1, Q = \u_valid_bit_ram.valid_bits [62]).
+
+10.25.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+Removed 64 unused cells and 11429 unused wires.
+<suppressed ~73 debug messages>
+
+10.25.5. Rerunning OPT passes. (Removed registers in this run.)
+
+10.25.6. Executing OPT_EXPR pass (perform const folding).
+Optimizing module cache_core.
+
+10.25.7. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\cache_core'.
+Computing hashes of 32190 cells of `\cache_core'.
+Finding duplicate cells in `\cache_core'.
+Removed a total of 0 cells.
+
+10.25.8. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.25.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \cache_core..
+
+10.25.10. Finished fast OPT passes.
+
+10.26. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `cache_core'. Setting top module to cache_core.
+
+10.26.1. Analyzing design hierarchy..
+Top module:  \cache_core
+
+10.26.2. Analyzing design hierarchy..
+Top module:  \cache_core
+Removed 0 unused modules.
+
+10.27. Printing statistics.
+
+=== cache_core ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    22511 wires
+    33263 wire bits
+      203 public wires
+    10938 public wire bits
+       12 ports
+      208 port bits
+    32190 cells
+      177   $_ANDNOT_
+     4382   $_AND_
+     9600   $_DFFE_PP_
+        4   $_DFF_P_
+     3499   $_MUX_
+     5839   $_NAND_
+     1160   $_NOR_
+       13   $_NOT_
+     4444   $_ORNOT_
+     2925   $_OR_
+      105   $_SDFFE_PP0P_
+        6   $_SDFF_PP0_
+        3   $_XNOR_
+       24   $_XOR_
+        9   $scopeinfo
+
+10.28. Executing CHECK pass (checking for obvious problems).
+Checking module cache_core...
+Found and reported 0 problems.
+
+11. Executing CHECK pass (checking for obvious problems).
+Checking module cache_core...
+Found and reported 0 problems.
+{
+   "creator": "Yosys 0.71+34 (git sha1 e419c4eef, Release, Clang /usr/local/osxcross/target/bin/aarch64-apple-darwin25.5-clang++ 21.1.8)",
+   "invocation": "stat -json ",
+   "modules": {
+      "\\cache_core": {
+         "num_wires":         22511,
+         "num_wire_bits":     33263,
+         "num_pub_wires":     203,
+         "num_pub_wire_bits": 10938,
+         "num_ports":         12,
+         "num_port_bits":     208,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         32190,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 177,
+            "$_AND_": 4382,
+            "$_DFFE_PP_": 9600,
+            "$_DFF_P_": 4,
+            "$_MUX_": 3499,
+            "$_NAND_": 5839,
+            "$_NOR_": 1160,
+            "$_NOT_": 13,
+            "$_ORNOT_": 4444,
+            "$_OR_": 2925,
+            "$_SDFFE_PP0P_": 105,
+            "$_SDFF_PP0_": 6,
+            "$_XNOR_": 3,
+            "$_XOR_": 24,
+            "$scopeinfo": 9
+         }
+      }
+   },
+      "design": {
+         "num_wires":         22511,
+         "num_wire_bits":     33263,
+         "num_pub_wires":     203,
+         "num_pub_wire_bits": 10938,
+         "num_ports":         12,
+         "num_port_bits":     208,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         32190,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 177,
+            "$_AND_": 4382,
+            "$_DFFE_PP_": 9600,
+            "$_DFF_P_": 4,
+            "$_MUX_": 3499,
+            "$_NAND_": 5839,
+            "$_NOR_": 1160,
+            "$_NOT_": 13,
+            "$_ORNOT_": 4444,
+            "$_OR_": 2925,
+            "$_SDFFE_PP0P_": 105,
+            "$_SDFF_PP0_": 6,
+            "$_XNOR_": 3,
+            "$_XOR_": 24,
+            "$scopeinfo": 9
+         }
+      }
+}
+
+End of script. Logfile hash: f3c38c748e, time: 2.39s, user: 0.77s, system: 0.13s, MEM: 114.02 MB peak
+Yosys 0.71+34 (git sha1 e419c4eef, Release, Clang /usr/local/osxcross/target/bin/aarch64-apple-darwin25.5-clang++ 21.1.8)
+Time spent: 84% 1x abc (3 sec), 3% 20x opt_clean (0 sec), ...

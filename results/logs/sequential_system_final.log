@@ -1,0 +1,44 @@
+rtl/cache_top.v:9: warning: timescale for cache_top inherited from another file.
+rtl/cache_lookup.v:1: ...: The inherited timescale is here.
+warning: Some design elements have no explicit time unit and/or
+       : time precision. This may cause confusing timing results.
+       : Affected design elements are:
+       :   -- module address_decoder declared here: rtl/address_decoder.v:7
+VCD info: dumpfile results/waveforms/sequential_system_final.vcd opened for output.
+WORKLOAD sequential
+READ,number,address,actual,expected,hit,cycles
+READ,1,00000000,a5,a5,0,8
+READ,2,00000001,a4,a4,1,2
+READ,3,00000002,a7,a7,1,2
+READ,4,00000003,a6,a6,1,2
+READ,5,00000004,a1,a1,1,2
+READ,6,00000005,a0,a0,1,2
+READ,7,00000006,a3,a3,1,2
+READ,8,00000007,a2,a2,1,2
+READ,9,00000008,ad,ad,1,2
+READ,10,00000009,ac,ac,1,2
+READ,11,0000000a,af,af,1,2
+READ,12,0000000b,ae,ae,1,2
+READ,13,0000000c,a9,a9,1,2
+READ,14,0000000d,a8,a8,1,2
+READ,15,0000000e,ab,ab,1,2
+READ,16,0000000f,aa,aa,1,2
+READ,17,00000010,b5,b5,0,8
+READ,18,00000011,b4,b4,1,2
+READ,19,00000012,b7,b7,1,2
+READ,20,00000013,b6,b6,1,2
+READ,21,00000014,b1,b1,1,2
+READ,22,00000015,b0,b0,1,2
+READ,23,00000016,b3,b3,1,2
+READ,24,00000017,b2,b2,1,2
+READ,25,00000018,bd,bd,1,2
+READ,26,00000019,bc,bc,1,2
+READ,27,0000001a,bf,bf,1,2
+READ,28,0000001b,be,be,1,2
+READ,29,0000001c,b9,b9,1,2
+READ,30,0000001d,b8,b8,1,2
+READ,31,0000001e,bb,bb,1,2
+READ,32,0000001f,ba,ba,1,2
+METRICS,sequential,32,30,2,60,16,0
+PASS sequential
+tb/tb_cache_system.v:263: $finish called at 1120000 (1ps)

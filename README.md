@@ -10,7 +10,7 @@ This repository contains:
 - Member 03's tested tag comparator, cache lookup decision logic, and 16-to-1 data selector;
 - Member 04's tested controller FSM and deterministic main-memory model.
 
-With Member 04's modules, `cache_top` is now a complete, runnable read-only cache. Member 05's system-level traces, statistics, AMAT and synthesis evidence are still pending.
+With Member 04's modules, `cache_top` is now a complete, runnable read-only cache. Member 05 verified the system workloads and measured hit/miss statistics and AMAT. Generic cache-core synthesis also passed.
 
 ## Cache configuration
 
@@ -36,7 +36,7 @@ With Member 04's modules, `cache_top` is now a complete, runnable read-only cach
 | Member 02 | Cache data RAM, tag RAM, valid-bit RAM | Delivered |
 | Member 03 | Tag comparison, hit logic, byte selection | Delivered |
 | Member 04 | Controller FSM and deterministic main-memory model | Delivered |
-| Member 05 | System testbenches, traces, metrics, waveforms, synthesis evidence | In progress |
+| Member 05 | System testbenches, traces, metrics, waveforms, synthesis evidence | Delivered |
 
 ## Repository layout
 
@@ -300,7 +300,18 @@ All modules listed in `docs/interface_contract.md` are now implemented, and `cac
 ./scripts/check_cache_top.sh
 ```
 
-Remaining work belongs to Member 05: full-system workload traces, hit/miss statistics, AMAT and synthesis evidence.
+Run the full suite with `bash scripts/run_all_tests.sh` (Icarus Verilog and
+Python 3 on PATH). To run a single workload, use
+`bash scripts/run_sim.sh conflict`, or substitute `system`, `sequential`,
+`repeated` or `random`. For generic synthesis, run
+`bash scripts/run_synthesis.sh` with Yosys and Python 3 on PATH.
+
+See the [test plan](docs/test_plan.md), [results summary](docs/results_summary.md)
+and [IEEE report](submission/report/circuit_switchers_ieee_report.pdf). Build
+the report in `submission/report` by running
+`pdflatex circuit_switchers_ieee_report.tex` twice with IEEEtran installed.
+To regenerate the updated figure PDFs, run
+`python3 scripts/render_phase1_figures.py` after simulation with ReportLab installed.
 
 ## Collaboration workflow
 

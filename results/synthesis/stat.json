@@ -1,0 +1,67 @@
+{
+   "creator": "Yosys 0.71+34 (git sha1 e419c4eef, Release, Clang /usr/local/osxcross/target/bin/aarch64-apple-darwin25.5-clang++ 21.1.8)",
+   "invocation": "stat -json ",
+   "modules": {
+      "\\cache_core": {
+         "num_wires":         22511,
+         "num_wire_bits":     33263,
+         "num_pub_wires":     203,
+         "num_pub_wire_bits": 10938,
+         "num_ports":         12,
+         "num_port_bits":     208,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         32190,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 177,
+            "$_AND_": 4382,
+            "$_DFFE_PP_": 9600,
+            "$_DFF_P_": 4,
+            "$_MUX_": 3499,
+            "$_NAND_": 5839,
+            "$_NOR_": 1160,
+            "$_NOT_": 13,
+            "$_ORNOT_": 4444,
+            "$_OR_": 2925,
+            "$_SDFFE_PP0P_": 105,
+            "$_SDFF_PP0_": 6,
+            "$_XNOR_": 3,
+            "$_XOR_": 24,
+            "$scopeinfo": 9
+         }
+      }
+   },
+      "design": {
+         "num_wires":         22511,
+         "num_wire_bits":     33263,
+         "num_pub_wires":     203,
+         "num_pub_wire_bits": 10938,
+         "num_ports":         12,
+         "num_port_bits":     208,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         32190,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 177,
+            "$_AND_": 4382,
+            "$_DFFE_PP_": 9600,
+            "$_DFF_P_": 4,
+            "$_MUX_": 3499,
+            "$_NAND_": 5839,
+            "$_NOR_": 1160,
+            "$_NOT_": 13,
+            "$_ORNOT_": 4444,
+            "$_OR_": 2925,
+            "$_SDFFE_PP0P_": 105,
+            "$_SDFF_PP0_": 6,
+            "$_XNOR_": 3,
+            "$_XOR_": 24,
+            "$scopeinfo": 9
+         }
+      }
+}
+

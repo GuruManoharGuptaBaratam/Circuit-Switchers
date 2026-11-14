@@ -1,0 +1,28 @@
+rtl/cache_top.v:9: warning: timescale for cache_top inherited from another file.
+rtl/cache_lookup.v:1: ...: The inherited timescale is here.
+warning: Some design elements have no explicit time unit and/or
+       : time precision. This may cause confusing timing results.
+       : Affected design elements are:
+       :   -- module address_decoder declared here: rtl/address_decoder.v:7
+VCD info: dumpfile results/waveforms/repeated_system_final.vcd opened for output.
+WORKLOAD repeated
+READ,number,address,actual,expected,hit,cycles
+READ,1,00000004,a1,a1,0,8
+READ,2,00000004,a1,a1,1,2
+READ,3,00000004,a1,a1,1,2
+READ,4,00000004,a1,a1,1,2
+READ,5,00000004,a1,a1,1,2
+READ,6,00000004,a1,a1,1,2
+READ,7,00000004,a1,a1,1,2
+READ,8,00000004,a1,a1,1,2
+READ,9,00000004,a1,a1,1,2
+READ,10,00000004,a1,a1,1,2
+READ,11,00000004,a1,a1,1,2
+READ,12,00000004,a1,a1,1,2
+READ,13,00000004,a1,a1,1,2
+READ,14,00000004,a1,a1,1,2
+READ,15,00000004,a1,a1,1,2
+READ,16,00000004,a1,a1,1,2
+METRICS,repeated,16,15,1,30,8,0
+PASS repeated
+tb/tb_cache_system.v:263: $finish called at 580000 (1ps)

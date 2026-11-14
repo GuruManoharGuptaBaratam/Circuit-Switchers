@@ -1,0 +1,28 @@
+rtl/cache_top.v:9: warning: timescale for cache_top inherited from another file.
+rtl/cache_lookup.v:1: ...: The inherited timescale is here.
+warning: Some design elements have no explicit time unit and/or
+       : time precision. This may cause confusing timing results.
+       : Affected design elements are:
+       :   -- module address_decoder declared here: rtl/address_decoder.v:7
+VCD info: dumpfile results/waveforms/conflict_system_final.vcd opened for output.
+WORKLOAD conflict
+READ,number,address,actual,expected,hit,cycles
+READ,1,00000000,a5,a5,0,8
+READ,2,00000400,a1,a1,0,8
+READ,3,00000000,a5,a5,0,8
+READ,4,00000400,a1,a1,0,8
+READ,5,00000000,a5,a5,0,8
+READ,6,00000400,a1,a1,0,8
+READ,7,00000000,a5,a5,0,8
+READ,8,00000400,a1,a1,0,8
+READ,9,00000000,a5,a5,0,8
+READ,10,00000400,a1,a1,0,8
+READ,11,00000000,a5,a5,0,8
+READ,12,00000400,a1,a1,0,8
+READ,13,00000000,a5,a5,0,8
+READ,14,00000400,a1,a1,0,8
+READ,15,00000000,a5,a5,0,8
+READ,16,00000400,a1,a1,0,8
+METRICS,conflict,16,0,16,0,128,0
+PASS conflict
+tb/tb_cache_system.v:263: $finish called at 1480000 (1ps)

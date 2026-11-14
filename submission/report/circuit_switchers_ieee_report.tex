@@ -1,49 +1,36 @@
 \documentclass[conference]{IEEEtran}
 \usepackage[T1]{fontenc}
-\usepackage{graphicx}
+\usepackage{graphicx,float}
 \usepackage{booktabs}
 \usepackage{url}
 \usepackage{cite}
 \usepackage[hidelinks]{hyperref}
 \urlstyle{same}
 \raggedbottom
-\pagestyle{plain}
 \graphicspath{{figures/}}
 \begin{document}
 \title{Circuit Switchers: Direct-Mapped Cache Controller\\\large Modern Computer Architecture - Project 6}
 \author{\IEEEauthorblockN{Guru Manohar Gupta, Harsith Priyan, Pranavi Mathur\\Yatin Singh, Dadi Dinesh}
-\IEEEauthorblockA{Department of CS and AI\\Newton School of Technology\\Phase I -- 12 November 2026}}
+\IEEEauthorblockA{Department of CS and AI\\Newton School of Technology\\Phase I -- 14 November 2026}}
 \maketitle
 \begin{abstract}
-Processor performance can be limited by the time required to access main memory. A cache retains recently used blocks near the processor and can exploit temporal and spatial locality. Circuit Switchers proposes a direct-mapped, read-only cache controller in Verilog with 32-bit byte addresses, 1024 bytes of data capacity, 64 lines and 16-byte blocks. Direct mapping provides a simple indexed lookup and a deterministic replacement location. The Phase-I prototype implements the address decoder and the data, tag and valid-bit storage; a top-level skeleton establishes the remaining interfaces. Re-executed Icarus Verilog simulations passed six directed decoder cases and 22 storage checks. Stub-assisted elaboration verifies module-port compatibility only. The controller FSM and a deterministic main-memory model now complete the read path; an integrated controller test passes 40 of 40 checks, with a 2-cycle hit and an 8-cycle miss. Workload-level system verification, hit-rate/AMAT measurement and synthesis remain pending. This report presents the implemented architecture, the proposed transaction flow, verified component evidence and the five-member work allocation without claiming completed cache operation or measured performance gains.
+Main-memory access can limit processor performance. Circuit Switchers implements a direct-mapped read-only cache in Verilog with 32-bit byte addresses, 64 lines and 16-byte blocks, for 1 KiB of data. A four-state controller returns one byte per request and refills the indexed line on a miss. Self-checking Icarus Verilog runs verified 331 completed reads and three reset cancellations using an independent residency model and deterministic memory contents. With the default simulated memory latency, hits and misses took two and eight clock cycles, respectively. Average memory access time ranged from 2.375 to 8.000 cycles across four workload traces. Synthesis evaluated the cache logic with an external memory interface.
 \end{abstract}
-\begin{IEEEkeywords}direct-mapped cache, Verilog, memory hierarchy, RTL verification, Phase-I prototype\end{IEEEkeywords}
-\section{Introduction}
-Memory hierarchy design balances access latency, capacity and cost \cite{smith1982}, \cite{hennessy2017}. Caches exploit temporal reuse and nearby accesses. A hit serves a request from an existing line; a miss requires a lower memory level. Benefits depend on workload and implementation timing and must be measured.
+\begin{IEEEkeywords}direct-mapped cache, Verilog, memory hierarchy, RTL verification\end{IEEEkeywords}
 
-Circuit Switchers is a five-member Modern Computer Architecture project. Its initial scope is one outstanding read, an 8-bit response, synchronous active-high reset and aligned 128-bit refill. Writes, coherence and physical DRAM integration are outside this milestone. This report audits baseline commit \path{370a8f7}, with component tests rerun on 12 November 2026. Documentation changes do not alter the RTL. The submission deadline is 16 November 2026.
+\section{Introduction}
+Caches retain recently used blocks and can reduce the time spent waiting for memory. The Circuit Switchers prototype handles one outstanding read, returns an 8-bit response and refills with aligned 128-bit blocks. The delivered RTL baseline is Git commit \texttt{9a227c8}. This milestone covers the integrated read path and synchronous active-high reset.
 
 \section{Literature Review}
-\subsection{Memory hierarchy and locality}
-Smith's survey examines cache placement, replacement, line size, update policies and trace-driven evaluation \cite{smith1982}. Temporal locality motivates retaining recently accessed data; spatial locality motivates transferring a block containing adjacent bytes. These concepts explain the intended repeated-address and sequential-address demonstrations. Historical performance figures in the survey are not measurements of this project.
+Smith surveys cache placement, block size and trace-driven evaluation \cite{smith1982}. Temporal locality motivates retaining recently accessed data. Spatial locality motivates fetching adjacent bytes in a block. The repeated and sequential traces exercise these effects. Hennessy and Patterson describe quantitative evaluation of the memory hierarchy, including the effect of cache misses on average access time \cite{hennessy2017}.
 
-Hennessy and Patterson place memory hierarchy design within quantitative architectural evaluation \cite{hennessy2017}. Cache capacity, access time and miss behavior must be assessed together. The present project adopts a small fixed geometry to make address fields and replacement effects easy to inspect. It does not claim that 1 KB or a 16-byte block is optimal for a particular application.
-
-\subsection{Direct mapping and hit/miss behavior}
-Direct mapping assigns each memory block to exactly one cache line \cite{smith1982}, \cite{hennessy2017}. An index selects that line, while a stored tag distinguishes blocks sharing the index. A valid bit indicates whether the stored contents are usable. This organization simplifies placement and avoids selecting among multiple ways, but competing addresses can repeatedly evict one another.
-
-The proposed design uses validity and tag equality to identify a hit. On a miss, its intended controller waits for a memory block and replaces the indexed line. The literature establishes the cache principles; the specific signal names, byte-lane convention and partial implementation documented here come from the team's repository.
-
-\subsection{Hardware description and verification}
-IEEE Std 1364-2005 defines Verilog as a hardware description language supporting design and verification \cite{ieee1364}. Published on 7 April 2006, it is cited as the historical Verilog specification, not as the current SystemVerilog standard.
-
-The prototype separates combinational decoding and reads from rising-edge storage writes. Self-checking testbenches compare observed values with expected values and terminate on failure. The existing scripts use Icarus Verilog's \path{-g2012} mode, which accommodates the testbench failure task; this audit does not claim strict Verilog-2005 tool conformance. Compiling a hierarchy with constant-output stubs cannot demonstrate functional memory transactions.
+Direct mapping assigns each memory block to exactly one cache line \cite{smith1982,patterson2020}. An index selects the line, a tag identifies the resident block, and a valid bit indicates whether it can be used. Blocks sharing an index can repeatedly evict one another.
 
 \section{Proposed Solution}
 \subsection{Configuration and address fields}
 The implemented geometry is summarized in Table I. The data capacity is 64 x 16 = 1024 bytes. Six index bits select 64 lines, four offset bits select 16 bytes and the remaining 22 bits form the tag. Metadata adds 64 x (22 + 1) = 1472 bits, or 184 bytes; the advertised 1 KB refers to data capacity alone.
 
-Fig.~\ref{fig:system_architecture} gives an architectural overview with implementation status. Fig.~\ref{fig:address_breakdown} shows the exact assignments in \path{rtl/address_decoder.v}: tag = address[31:10], index = address[9:4], and offset = address[3:0]. For example, 0x00000000 and 0x00000400 both select line 0, with tags 0 and 1 respectively. The decoder test verifies this mapping; it does not demonstrate an actual conflict miss.
+Fig.~\ref{fig:system_architecture} gives an overview of the integrated read path. Fig.~\ref{fig:address_breakdown} shows the exact assignments in \path{rtl/address_decoder.v}: tag = address[31:10], index = address[9:4], and offset = address[3:0]. For example, 0x00000000 and 0x00000400 both select line 0, with tags 0 and 1 respectively. The alternating-address workload confirms replacement at this index.
 
 \begin{table}[ht]
 \caption{Implemented Cache Configuration}
@@ -56,130 +43,126 @@ Data capacity & 1024 bytes (1 KB)\\
 Lines / block & 64 / 16 bytes (128 bits)\\
 Tag / index / offset & 22 / 6 / 4 bits\\
 Data / tag / valid storage & 8192 / 1408 / 64 bits\\
-Intended processor response & 8-bit read; interface only\\
+Processor response & 8-bit read with valid and hit\\
 \bottomrule\end{tabular}
 \end{table}
 \subsection{Implemented storage and reset}
 \path{cache_data_ram} stores 64 128-bit blocks and \path{tag_ram} stores 64 22-bit tags. Both expose independent read and write indexes, combinational reads, and synchronous writes gated by \path{write_en}. They have no reset ports; before initialization, their values may be unknown in simulation.
 
-\path{valid_bit_ram} stores one bit per line. Active-high synchronous reset clears all 64 bits and takes priority over a write. An enabled write can set or clear one bit. In \path{cache_top}, the intended refill path ties \path{write_valid} to one. Correct hit logic must reject an invalid line regardless of its tag or data; that hit logic is still absent.
+\path{valid_bit_ram} stores one bit per line. Active-high synchronous reset clears all 64 bits and takes priority over a write. An enabled write can set or clear one bit. The refill path ties \path{write_valid} to one. Lookup requires a valid line and a matching 22-bit tag.
 
-\subsection{Existing top-level connections}
-\path{cache_top} contains real module instantiations and interconnecting wires, but only the decoder and three storage implementations are present. It wires \path{req_addr} into the decoder, decoded fields into \path{cache_controller}, and controller-held \path{active_*} fields into the storage and lookup paths. Fig.~\ref{fig:module_connections} records the signal-level connections; repeated controller boxes refer to the same instance.
+\subsection{Top-level connections and transaction flow}
+\path{cache_top} decodes \path{req_addr} and passes the fields to the controller. The controller captures them when both \path{req_valid} and \path{req_ready} are sampled high. These fields drive reads, tag comparison and byte selection (Fig.~\ref{fig:module_connections}). The tag comparator sits inside \path{cache_lookup}. Separate selectors read the cached and refill blocks. Lane $n$ occupies bits $8n$ through $8n+7$. Appending four zero bits to the captured tag and index forms the aligned memory address.
 
-Two \path{data_selector} instances are wired: one selects from \path{stored_block}, and the other from \path{mem_block}. Each is intended to select byte lane n as block\_data[(8*n) +: 8], so offset zero selects bits [7:0]. Neither selector has functional RTL. The assignment mem\_addr = \{active\_tag, active\_index, 4'b0000\} exists and aligns a future memory request to 16 bytes.
+Figs.~\ref{fig:cache_hit_miss_flow} and \ref{fig:controller_fsm} show the implemented sequence. IDLE accepts a request and LOOKUP examines the indexed line. On a hit, the controller latches the cached byte and enters RESPOND with the hit flag asserted. On a miss, MEM\_WAIT holds \path{mem_req} and the aligned address until \path{mem_ready}. Ready enables the data, tag and valid writes. On the refill edge, the controller captures the requested byte directly from the returned block. RESPOND drives a one-cycle \path{resp_valid} pulse. Synchronous reset restores IDLE, invalidates every line and cancels any in-flight memory request.
 
-The controller and main-memory model (\path{cache_controller}, \path{main_memory_model}) are now delivered by Member 04, and \path{cache_top} elaborates with real RTL for every instance. The contract additionally assigns a \path{tag_comparator} inside the future lookup implementation; it is not an existing top-level instance. Files in \path{tb/stubs/} provide constant outputs only and are excluded from claims of cache functionality.
+The 64 KiB simulation model aliases addresses modulo 65,536. Default contents at byte address $a$ are the XOR of address bits [7:0], bits [15:8] and \texttt{0xA5}. The model asserts ready four periods after its own acceptance edge.
 
-\subsection{Intended hit, miss and refill operation}
-Fig.~\ref{fig:cache_hit_miss_flow} is the proposed transaction flow. When \path{req_valid} and \path{req_ready} are high at a rising edge, the controller must capture tag, index and offset and hold them until completion. The selected storage line can then be checked. The intended hit equation is stored\_valid AND (active\_tag = stored\_tag). A hit should return the selected cached byte with \path{resp_hit} high and without a memory request.
+\section{Verification and Results}
+\subsection{Regression and scoreboard}
+The decoder, storage, lookup and controller tests passed 6, 22, 41 and 40 checks, respectively. The controller test exercises the integrated cache. Real-only top-level elaboration also passed. Five additional simulations model block residency independently and check address capture, response byte, hit flag, latency and single completion per uncanceled request. On misses the scoreboard verifies alignment, the handshake, all refill lanes and the installed line. Hits must leave memory idle.
 
-A miss should assert \path{mem_req} and hold the aligned address until \path{mem_ready}. While the returned block is valid, one refill edge must update data, tag and valid storage at \path{active_index}. The response byte should be selected directly from \path{mem_block}, with \path{resp_hit} low. \path{resp_valid} must pulse exactly once for each accepted request. Member 04's \path{cache_controller} implements this sequencing, and the integrated test in Section~\ref{sec:m4} verifies it, including the refill writes into storage.
+The directed run covered cold fill, two resident indexes, backpressure, full-width tags, warm-cache invalidation and reset cancellation during lookup, memory wait and memory ready. The sequential trace covers all 16 offsets and crosses a block boundary. The repeated trace reads \texttt{0x04} 16 times. The conflict trace alternates \texttt{0x00000000} and \texttt{0x00000400}. The 256-read random trace uses xorshift32 with seed \texttt{0x6D2B79F5} over 4 KiB. Each trace starts cold.
 
-Fig.~\ref{fig:controller_fsm} is the implemented state machine of \path{rtl/cache_controller.v}. It has four states: IDLE, LOOKUP, MEM\_WAIT and RESPOND. The memory interface promises valid data only during the \path{mem_ready} pulse, so the refill is performed on the MEM\_WAIT$\rightarrow$RESPOND edge. \path{refill_write_en} is the single Mealy output, (state = MEM\_WAIT) AND \path{mem_ready}, and the requested byte is latched from \path{mem_block} on that same edge. RESPOND then only drives the one-cycle \path{resp_valid} pulse.
+\subsection{Latency and workload measurements}
+Latency counts rising-edge intervals from request acceptance to consumer sampling of \path{resp_valid}. With acceptance at E0, a hit asserts valid after E1 and is sampled at E2. On a miss, memory accepts at E2 and asserts ready after E6. The cache refills at E7 and the requester samples the response at E8. The additional miss penalty is six cycles. For miss fraction $p_m$, AMAT is $2+6p_m$ cycles per read. It matches the direct mean of sampled latencies for each workload. The simulation clock period is 10 ns.
 
-\section{Verification and Preliminary Results}
-\subsection{Executed component checks}
-Table II summarizes the rerun results. The decoder cases cover zero, an interior byte offset, the last byte of a block, the next block, a different tag at the same index and the maximum 32-bit address. Storage checks cover reset of all valid bits, reset/write priority, data and tag readback and replacement, line isolation, boundary data lines, disabled writes, explicit valid-bit clearing and reset after population.
-
-These are directed checks, not exhaustive coverage. Storage data patterns exercise lines 0, 3, 4 and 63; tag checks focus on lines 3 and 4. Valid-bit loops inspect all 64 entries for specified reset/isolation conditions. The two testbenches are independent and do not issue processor-level cache transactions.
-
-\begin{table}[ht]
-\caption{Observed Audit Results}
+\begin{table}[!t]
+\caption{Observed workload results}
+\label{tab:results}
 \centering\small
-\begin{tabular}{p{0.43\columnwidth}p{0.47\columnwidth}}
+\begin{tabular}{lrrrrr}
 \toprule
-Check & Observed result\\\midrule
-Decoder unit simulation & 6 run; 6 passed; 0 failed\\
-Storage unit simulation & 22 run; 22 passed; 0 failed\\
-Lookup unit simulation & 41 run; 41 passed; 0 failed\\
-Top level with stubs & Elaboration succeeded\\
-Top level without stubs & Elaboration succeeded\\
-Controller integrated simulation & 40 run; 40 passed; 0 failed\\
-Workload traces / AMAT & Not run; Member 05 pending\\
-\bottomrule\end{tabular}
+Run & Reads & Hits & Misses & Hit (\%) & Cycles/read\\\midrule
+Directed & 11 & 3 & 8 & 27.27 & 6.364\\
+Sequential & 32 & 30 & 2 & 93.75 & 2.375\\
+Repeated & 16 & 15 & 1 & 93.75 & 2.375\\
+Conflict & 16 & 0 & 16 & 0.00 & 8.000\\
+Random & 256 & 39 & 217 & 15.23 & 7.086\\
+\bottomrule
+\end{tabular}
 \end{table}
-\subsection{Reproducibility and limits}
-The tool versions, source hashes, commands and exit statuses are recorded in \path{results/phase1_evidence.json}. The two selected final VCDs and component logs are retained in Git. Running \path{python3 scripts/capture_phase1_evidence.py} recreates this component evidence. The missing-module log documents why a functional top-level simulation is blocked.
+Table~\ref{tab:results} counts completed reads. The rates exclude three reset-canceled requests. AMAT also excludes idle intervals. Figs.~\ref{fig:system_miss_hit} and \ref{fig:system_conflict} show the cold refill, repeat hit and same-index replacement. Fig.~\ref{fig:controller_waveform} shows a separate controller regression.
 
-Icarus reports timescale warnings for the decoder and top-level skeleton. These do not invalidate the observed directed checks, but simulation time units should be made explicit before integrated timing analysis. The storage testbench clock period is a stimulus choice, not a demonstrated hardware clock frequency.
-
-No integrated hit count, miss count, random workload, AMAT, synthesis utilization or maximum clock frequency has been measured. For future reporting, define miss rate as misses/accepted requests and use AMAT = hit time + miss rate x additional miss penalty \cite{hennessy2017}, with consistent units and a stated sampling method. The additional penalty must exclude the hit-time term to avoid counting it twice.
+\subsection{Generic synthesis and reproducibility}
+Yosys 0.71+34 synthesized the cache logic with the simulation memory excluded and the memory interface exposed. The flattened flow produced 32,190 generic cells including nine scope metadata cells, with 9,715 flip-flop cells and 3,499 multiplexer cells. The measurements cover generic mapping and RTL simulation. FPGA utilization, physical area, maximum frequency and speedup relative to a no-cache baseline were outside the measured scope. The repository includes commands, statistics, regression logs, per-read traces, source hashes and VCDs.
 
 \section{Individual Contributions}
-The team supplied the names and institution. Assigned responsibility is distinguished from delivered work. Git history and the working tree support implementation deliveries by Members 01-04; no system-test delivery was found for Member 05. Audit documentation and evidence capture are not retroactively credited as their implementation work.
+\textbf{Guru Manohar Gupta (Member 01)} implemented the address decoder and top-level integration, and supplied their interface, architecture and decoder checks (commits \texttt{9aa6577}, \texttt{d930302}, \texttt{1217060}, \texttt{370a8f7}).
 
-\subsection{Member 01 - Guru Manohar Gupta}
-Assigned: address decoder, top-level integration, interface contract and architecture documentation. Delivered: \path{rtl/address_decoder.v}, \path{rtl/cache_top.v}, the decoder testbench, interface/architecture documents and compile scripts. Commits \path{9aa6577}, \path{d930302}, \path{1217060} and \path{370a8f7} appear under Git author GuruManoharGuptaBaratam. Six decoder checks pass; the skeleton elaborates with stubs. The contribution establishes address interpretation and module boundaries. Full integration remains incomplete.
+\textbf{Harsith Priyan (Member 02)} implemented data, tag and valid storage and supplied directed verification and documentation (commits \texttt{5662211}, \texttt{f434789}, \texttt{114d788}, \texttt{d6e5ccc}).
 
-\subsection{Member 02 - Harsith Priyan}
-Assigned: Cache Data RAM, Tag RAM and Valid-Bit RAM. Delivered: \path{rtl/cache_data_ram.v}, \path{rtl/tag_ram.v}, \path{rtl/valid_bit_ram.v}, \path{tb/tb_cache_storage.v}, storage documentation and a passing log. Commits \path{5662211}, \path{f434789}, \path{114d788} and \path{d6e5ccc} appear under Git author Harsith Priyan Sivanandham. All 22 directed storage checks pass. These modules provide the cache's data and metadata storage; integrated refill behavior is not yet verified.
+\textbf{Pranavi Mathur (Member 03)} implemented tag comparison, validity-gated lookup and byte selection with directed checks and documentation (commits \texttt{3b44e0e}, \texttt{cb44829}).
 
-\subsection{Member 03 - Pranavi Mathur}
-Assigned: Tag Comparator, Cache Lookup and Data Selector. Delivered: \path{rtl/tag_comparator.v}, \path{rtl/cache_lookup.v}, \path{rtl/data_selector.v}, \path{tb/tb_cache_lookup.v}, \path{docs/cache_lookup.md}, and automated test script \path{scripts/run_cache_lookup_test.sh}. All 41 directed test cases pass (recorded in \path{results/logs/cache_lookup_final.log} and \path{results/waveforms/cache_lookup_final.vcd}). This contribution implements 22-bit tag equality comparison, hit generation gated strictly with the line's valid bit (preventing false hits on uninitialized lines), and Little-Endian 16-to-1 byte multiplexing across all 16 offsets. Direct-mapped conflict addresses (0x00000000 and 0x00000400) were verified in coordination with Member 05. Elaboration in \path{cache_top.v} successfully verifies compatibility with Members 01 and 02.
+\textbf{Yatin Singh (Member 04)} implemented the controller and memory model and supplied the integrated controller test, FSM and memory documentation, and waveform (commit \texttt{7cf0ef7}).
 
-\subsection{Member 04 - Yatin Singh}\label{sec:m4}
-Assigned: Cache Controller FSM, Main-Memory Model, memory request and refill sequencing. Delivered: \path{rtl/cache_controller.v}, \path{rtl/main_memory_model.v}, \path{tb/tb_cache_controller.v}, \path{docs/fsm_design.md}, \path{docs/memory_model.md}, \path{scripts/run_cache_controller_test.sh} and the figure script \path{scripts/plot_controller_figures.py}.
+\textbf{Dadi Dinesh (Member 05)} delivered the full-system scoreboard and deterministic workloads, regression scripts, hit/miss and AMAT analysis, VCD evidence, generic synthesis flow, verification documentation and technical revision of the Phase I report.
 
-\textbf{Controller.} A four-state FSM (Fig.~\ref{fig:controller_fsm}). IDLE asserts \path{req_ready} and captures tag, index and offset on acceptance. These \path{active_*} fields stay constant until completion, which keeps \path{mem_addr} aligned and stable. LOOKUP samples the combinational \path{lookup_hit}. A hit latches the cached byte and goes directly to RESPOND, so \path{mem_req} is never raised. A miss enters MEM\_WAIT, which holds \path{mem_req} until \path{mem_ready}. In that cycle, \path{refill_write_en} writes the data, tag and valid bit at \path{active_index}, and the requested byte is taken from \path{mem_block}. RESPOND pulses \path{resp_valid} once. Synchronous reset returns to IDLE from any state.
+\section{Conclusion}
+The integrated read path passed directed and seeded workloads with byte-lane, reset and conflict checks. The two-cycle hit and eight-cycle miss were consistent across the runs at the default memory latency. Differences in miss fraction account for the observed AMAT range.
 
-\textbf{Main memory.} The model is a simulation-only 64~KB byte array initialised to mem[a] = a[7:0] XOR a[15:8] XOR 0xA5. All bytes in a block therefore differ, and blocks sharing an index (0x000, 0x400) return different data. It accepts a request on the first edge on which \path{mem_req} is high and returns the 16-byte block with a one-cycle \path{mem_ready} pulse after a fixed \path{LATENCY} (default 4 cycles). Byte lane $n$ holds address mem\_addr + $n$, and reset cancels a request in flight.
+\begin{thebibliography}{3}
+\bibitem{smith1982} A. J. Smith, Cache memories, \emph{ACM Computing Surveys}, vol. 14, no. 3, pp. 473--530, Sep. 1982, doi: \href{https://doi.org/10.1145/356887.356892}{10.1145/356887.356892}.
+\bibitem{hennessy2017} J. L. Hennessy and D. A. Patterson, \emph{Computer Architecture: A Quantitative Approach}, 6th ed. Morgan Kaufmann, 2017, ch. 2, ISBN \href{https://shop.elsevier.com/books/computer-architecture/hennessy/978-0-12-811905-1}{978-0-12-811905-1}.
+\bibitem{patterson2020} D. A. Patterson and J. L. Hennessy, \emph{Computer Organization and Design RISC-V Edition: The Hardware/Software Interface}, 2nd ed. Morgan Kaufmann, 2020, ch. 5, ISBN \href{https://www.educate.elsevier.com/book/details/9780128203316}{978-0-12-820331-6}.
+\end{thebibliography}
 
-\textbf{Timing.} Measured from the acceptance edge, a hit responds in 2 cycles and a miss in LATENCY + 4 = 8 cycles. The miss penalty is therefore LATENCY + 2 = 6 cycles, the value Member 05 should use for AMAT.
-
-\textbf{Verification.} The testbench drives the fully integrated \path{cache_top} with no stubs. Nine directed tests cover reset in idle, a cold miss (aligned address, full wait, data/tag/valid installed in line 0 only, correct byte), a repeat hit with no memory request, another offset in the same block, conflict replacement (0x404 evicting 0x004), re-miss after eviction, two lines resident together, reset during MEM\_WAIT, and \path{req_valid} held high. Monitors check on every cycle that refill never occurs without \path{mem_ready}, that \path{mem_addr} is stable and aligned while requested, that \path{resp_valid} lasts one cycle and that \path{req_ready} is asserted only in IDLE. All 40 checks pass (\path{results/logs/cache_controller_final.log}). Fig.~\ref{fig:controller_waveform} is rendered from \path{results/waveforms/cache_controller_final.vcd}. The tests also failed, as intended, against two deliberately broken controllers: one that refilled before \path{mem_ready} and one that requested memory during lookup. This test covers controller behaviour; workload traces, statistics and AMAT remain Member 05's responsibility.
-
-\subsection{Member 05 - Dadi Dinesh}
-Assigned: system testbench; sequential, repeated, seeded random and conflict workloads; hit/miss reporting; AMAT; synthesis and performance evidence. \path{docs/system_test_requirements.md} defines the hand-off, but no full-system testbench or performance/synthesis results are present. Existing decoder and storage tests belong to the delivered Member 01/02 work. The future contribution is to demonstrate data correctness and quantify complete-cache behavior after integration.
-
-\section{Conclusion and Next Milestone}
-Phase I provides a verified decoder, tested cache storage and an explicit integration contract. The geometry matches the intended direct-mapped cache. Five Mermaid sources separate actual boundaries from pending behavior.
-
-The next milestone is lookup/selection delivery, controller/memory integration and system regression. Tests must cover cold misses, repeated hits, sequential bytes, conflicts, all byte lanes, returned-data correctness, handshakes and reset before performance results are published.
-
-The video remains unrecorded. Before submission, the team must record a demonstration of at most five minutes, introduce every member by name, show current prototype progress and replace the video-link placeholder. The readiness checklist accompanies this report; no final spoken script is included.
-
-% \begin{thebibliography}{3}
-% \bibitem{smith1982} A. J. Smith, "Cache Memories," ACM Computing Surveys, vol. 14, no. 3, pp. 473-530, Sep. 1982. [Online]. Available: \url{https://courses.grainger.illinois.edu/ece511/fa2005/papers/Smith.1982.CSUR.pdf}
-% \bibitem{hennessy2017} J. L. Hennessy and D. A. Patterson, Computer Architecture: A Quantitative Approach, 6th ed. Morgan Kaufmann, 2017. [Online]. Available: \url{https://shop.elsevier.com/books/computer-architecture/hennessy/978-0-12-811905-1}
-% \bibitem{ieee1364} IEEE, IEEE Standard for Verilog Hardware Description Language, IEEE Std 1364-2005, Apr. 2006, doi: 10.1109/IEEESTD.2006.99495. [Online]. Available: \url{https://ieeexplore.ieee.org/document/1620780}
-% \end{thebibliography}
+\clearpage
 \onecolumn
 \appendices
-\section{Architecture Figures}
-All diagrams retain editable Mermaid sources. Green marks implemented and tested primitives; amber marks partial wiring; dashed gray marks pending behavior. The controller FSM (Fig.~\ref{fig:controller_fsm}) and waveform (Fig.~\ref{fig:controller_waveform}) reflect the implemented and simulated RTL.
+\section{Architecture and Waveform Evidence}
+\noindent
+\begin{minipage}[t]{.485\textwidth}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=.31\textheight,keepaspectratio]{system_architecture.pdf}
+\caption{Integrated read path with simulated memory.}\label{fig:system_architecture}
+\end{figure}
+\end{minipage}\hfill
+\begin{minipage}[t]{.485\textwidth}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=.31\textheight,keepaspectratio]{address_breakdown.pdf}
+\caption{Address fields and a worked example.}\label{fig:address_breakdown}
+\end{figure}
+\end{minipage}
+
+\noindent
+\begin{minipage}[t]{.485\textwidth}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=.31\textheight,keepaspectratio]{module_connections.pdf}
+\caption{Controller, storage, lookup and byte selection. The memory block feeds both the refill selector and the cache data RAM.}\label{fig:module_connections}
+\end{figure}
+\end{minipage}\hfill
+\begin{minipage}[t]{.485\textwidth}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,height=.31\textheight,keepaspectratio]{cache_hit_miss_flow.pdf}
+\caption{The refill writes the indexed line and returns the selected memory byte.}\label{fig:cache_hit_miss_flow}
+\end{figure}
+\end{minipage}
+
+\clearpage
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.98\textwidth,height=0.54\textheight,keepaspectratio]{system_architecture.pdf}
-\caption{System architecture based on cache\_top boundaries. Green denotes implemented and independently tested primitives; amber denotes existing wiring with pending control; dashed gray denotes pending behavior. Repeated controller/storage views describe the same boundaries, not extra RTL instances.}\label{fig:system_architecture}
+\includegraphics[width=.98\textwidth,height=.37\textheight,keepaspectratio]{controller_fsm.pdf}
+\caption{Implemented controller states and transitions.}\label{fig:controller_fsm}
 \end{figure}
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.98\textwidth,height=0.22\textheight,keepaspectratio]{address_breakdown.pdf}
-\caption{Implemented 32-bit address split from address\_decoder.v. The tag distinguishes blocks sharing an index; the index selects a line; the offset identifies a byte. The worked example is a decoded address, not an observed cache miss.}\label{fig:address_breakdown}
+\includegraphics[width=.98\textwidth,height=.37\textheight,keepaspectratio]{controller_waveform.pdf}
+\caption{Controller regression VCD showing the T2 cold miss and T3 repeat hit at byte address 0x04.}\label{fig:controller_waveform}
 \end{figure}
 \clearpage
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.98\textwidth,height=0.84\textheight,keepaspectratio]{cache_hit_miss_flow.pdf}
-\caption{Proposed cache transaction flow from the interface contract. Address decoding and storage primitives exist. Acceptance, comparisons, hit/miss handling, memory service, refill sequencing and completion remain pending. Dashed decision nodes are not implemented logic.}\label{fig:cache_hit_miss_flow}
-\end{figure}
-\clearpage
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=0.98\textwidth,height=0.62\textheight,keepaspectratio]{controller_fsm.pdf}
-\caption{Implemented controller FSM from cache\_controller.v. Refill (data, tag and valid write) occurs on the MEM\_WAIT$\rightarrow$RESPOND edge while mem\_block is valid; RESPOND produces exactly one resp\_valid pulse. Hit = 2 cycles, miss = LATENCY + 4 cycles.}\label{fig:controller_fsm}
+\includegraphics[width=.98\textwidth,height=.37\textheight,keepaspectratio]{system_miss_hit.pdf}
+\caption{Repeated workload VCD. Memory-ready qualifies the cold refill. The next read returns A1 with the hit flag high and memory idle.}\label{fig:system_miss_hit}
 \end{figure}
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.98\textwidth,height=0.5\textheight,keepaspectratio]{controller_waveform.pdf}
-\caption{Simulated miss then hit, rendered from cache\_controller\_final.vcd (tests T2--T3). A cold miss to 0x00000004 raises mem\_req for the aligned block 0x00000000, waits for memory, refills on the mem\_ready cycle and returns 0xA1 with resp\_hit = 0. The repeated request hits in two cycles without a memory request.}\label{fig:controller_waveform}
+\includegraphics[width=.98\textwidth,height=.37\textheight,keepaspectratio]{system_conflict.pdf}
+\caption{Conflict workload VCD. Both requests select index zero. The second refill replaces tag zero with tag one. Buses are hexadecimal.}\label{fig:system_conflict}
 \end{figure}
-\clearpage
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=0.98\textwidth,height=0.84\textheight,keepaspectratio]{module_connections.pdf}
-\caption{Actual module instantiations and signal relationships in cache\_top.v. Views A and B repeat the same controller for readability. Dashed boxes are missing functional dependencies. The comparator is planned inside lookup and has no existing instance; common clock/reset connections are listed in the diagram.}\label{fig:module_connections}
-\end{figure}
-\clearpage
 \end{document}

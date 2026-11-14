@@ -1,67 +1,30 @@
 {
-  "renderer": "Existing Obsidian installation: lib/mermaid.min.js",
-  "runtime_sha256": "662f8b68d21daac0e9bc0d0b7adc78e2c556e69e70881edccb81a5cf384eee64",
-  "browser": "157.0.8103.51",
-  "diagrams": [
-    {
-      "diagram": "system_architecture",
-      "source_sha256": "553e8eed978a27e7f2154a72f62c08ae66644e54040615f7f8e11cb7c8b80ccb",
-      "width": 1148,
-      "height": 949,
-      "syntax": "Mermaid parse and render succeeded",
-      "outputs": [
-        "svg",
-        "png",
-        "pdf"
-      ]
-    },
-    {
-      "diagram": "address_breakdown",
-      "source_sha256": "1a49126a23c312406e976169b940f29afe6eff050f4eb9b2167a0f4d23ba1017",
-      "width": 805,
-      "height": 376,
-      "syntax": "Mermaid parse and render succeeded",
-      "outputs": [
-        "svg",
-        "png",
-        "pdf"
-      ]
-    },
-    {
-      "diagram": "cache_hit_miss_flow",
-      "source_sha256": "d33a61f7e30fcd044ad4d9ab66b77a012159e2541c6833de6bf0f9cffe818390",
-      "width": 744,
-      "height": 1337,
-      "syntax": "Mermaid parse and render succeeded",
-      "outputs": [
-        "svg",
-        "png",
-        "pdf"
-      ]
-    },
-    {
-      "diagram": "controller_fsm",
-      "source_sha256": "19ec4d481fcef06591a24246202a7fcd4a2886ab1ce38007e8779e5f1a76d94a",
-      "width": 1122,
-      "height": 600,
-      "syntax": "Mermaid parse and render succeeded",
-      "outputs": [
-        "svg",
-        "png",
-        "pdf"
-      ]
-    },
-    {
-      "diagram": "module_connections",
-      "source_sha256": "9e6fad426caaae3c21bb2dae1f3092ff5869a49e7d4242df19ce3728580caadf",
-      "width": 1267,
-      "height": 1387,
-      "syntax": "Mermaid parse and render succeeded",
-      "outputs": [
-        "svg",
-        "png",
-        "pdf"
-      ]
-    }
-  ]
+  "address_breakdown": {
+    "pdf_sha256": "9d514e09d11edc148fa73b965fcecc6bad0e008ec2bbc20e1cca7d9265b47cb1"
+  },
+  "cache_hit_miss_flow": {
+    "pdf_sha256": "157115eae0fd105951bbc17c5e47d36fb853e6488c2e560f3ffa559ca5922810"
+  },
+  "controller_fsm": {
+    "pdf_sha256": "c914d1639915b36771ccb5577cb68a4005ff2b2de2e0b2c5d5fdb9550d39c762"
+  },
+  "controller_waveform": {
+    "pdf_sha256": "57730692d5cbb34e0c368a789e293e734179ca4a9c47a4e89f95a4e9463e7b00"
+  },
+  "module_connections": {
+    "pdf_sha256": "141a5b4714efcd760ed2510aa85e0889eae8c69002ee70e2a45c2a1916136e78"
+  },
+  "system_architecture": {
+    "pdf_sha256": "20e027543c8c9cd463364c56e9f90023f64f1e8259fd5774fa8034df0d670c7d"
+  },
+  "system_conflict": {
+    "pdf_sha256": "22df8d3c74812bf2dde4195df67fb2f9873f357d0924ba7b2d4e8961d4753c88",
+    "vcd": "results/waveforms/conflict_system_final.vcd",
+    "vcd_sha256": "c7808c4140f267086802489d8450dfe6c98fe0396577627099f335a28c66caf2"
+  },
+  "system_miss_hit": {
+    "pdf_sha256": "bd1df9a7d4602d6f377dcf1f444fb91376622ef07d06a86f3a54e529ccc15495",
+    "vcd": "results/waveforms/repeated_system_final.vcd",
+    "vcd_sha256": "0cd66bd5e79d69b4c6791f54c3f9f08d6c4732dbeb094a744c50bec2bb1d01c8"
+  }
 }
