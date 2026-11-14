@@ -1,5 +1,5 @@
 CIRCUIT SWITCHERS - MCA PROJECT 6
-MEMBER 01 SUBMISSION STATUS
+PHASE I SUBMISSION STATUS
 
 Implemented by Member 01:
 - rtl/address_decoder.v
@@ -42,13 +42,12 @@ Integrated and verified by Member 04:
 Current scope:
 - 32-bit address split into 22-bit tag, 6-bit index, and 4-bit offset
 - Read-only, byte-wide first integration milestone
-- Top-level integration skeleton using the shared interface contract
+- Integrated cache using the shared interface contract
 
-Pending team integration:
-- Member 03 lookup, comparator, and data-selector RTL
-- Member 05 full-system tests, metrics, waveform evidence, and synthesis results
+Member 05 evidence:
+- Test plan and results: docs/test_plan.md and docs/results_summary.md
+- Complete regression: bash scripts/run_all_tests.sh
+- Generic synthesis: bash scripts/run_synthesis.sh
+- IEEE report: submission/report/circuit_switchers_ieee_report.pdf
 
-Do not submit this placeholder as the final team report. Before final submission,
-replace or extend it with the repository URL, commit/tag, exact run commands,
-tool versions, verified test results, report/slides, evidence locations, and any
-declared limitations.
+Prototype video: Recording pending.

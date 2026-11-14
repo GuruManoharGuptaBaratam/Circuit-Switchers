@@ -1,0 +1,6 @@
+workload,completed,hits,misses,canceled,hit_rate_pct,miss_rate_pct,mean_hit_cycles,mean_miss_cycles,amat_cycles
+system,11,3,8,3,27.2727,72.7273,2.0000,8.0000,6.3636
+sequential,32,30,2,0,93.7500,6.2500,2.0000,8.0000,2.3750
+repeated,16,15,1,0,93.7500,6.2500,2.0000,8.0000,2.3750
+conflict,16,0,16,0,0.0000,100.0000,,8.0000,8.0000
+random,256,39,217,0,15.2344,84.7656,2.0000,8.0000,7.0859
