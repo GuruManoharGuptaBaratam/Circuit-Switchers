@@ -354,3 +354,4 @@ Never force-push shared branches, commit generated simulation binaries, or silen
 - `docs/test_plan.md` describes the system workloads, traces, and pass criteria.
 - `docs/results_summary.md` summarizes the measured hit/miss results and AMAT.
 - `docs/report_audit.md` records the report corrections and the current evidence status.
+- `docs/team_conceptual_guide_and_viva_prep.md` complete conceptual guide, bit math, member breakdown, and master viva preparation handbook.
